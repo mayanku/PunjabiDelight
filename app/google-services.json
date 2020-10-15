@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "275411888450",
+    "firebase_url": "https://punjabidelight-7b2c4.firebaseio.com",
+    "project_id": "punjabidelight-7b2c4",
+    "storage_bucket": "punjabidelight-7b2c4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:275411888450:android:ab3c144050fce1e55f00db",
+        "android_client_info": {
+          "package_name": "com.mayank.punjabidelight"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "275411888450-kk88krfclo30j8s1p48ht8tm9ub7eluv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mayank.punjabidelight",
+            "certificate_hash": "6891a1c624030114c2540897e4ec2607b78f250c"
+          }
+        },
+        {
+          "client_id": "275411888450-iv94lbi2m61ehkhbo2hu4n2r1s2k67de.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOmjzk19kXoY7jr3sKQVpBNtBQWYgUKpc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "275411888450-iv94lbi2m61ehkhbo2hu4n2r1s2k67de.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

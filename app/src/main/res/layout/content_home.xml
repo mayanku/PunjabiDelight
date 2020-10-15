@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/app_bar_main">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:src="@drawable/nav_cart"
+        android:padding="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/img"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img"
+        android:text="Categories"
+        android:id="@+id/textview_categories"
+        android:textSize="30dp"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        />
+
+
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textview_categories"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:id="@+id/r_indian"
+                android:layout_below="@+id/img"
+                android:background="@android:color/white"
+                >
+
+                <ImageView
+                    android:id="@+id/product_indian_image"
+                    android:layout_width="160dp"
+                    android:layout_height="100dp"
+                    android:text="User Name"
+                    android:textColor="@android:color/white"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="5dp"/>
+
+                <TextView
+                    android:id="@+id/product_indian_name"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:text="Indian"
+                    android:textStyle="bold"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="25dp"
+                    android:padding="20dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_alignParentEnd="true"/>
+
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:id="@+id/r_continental"
+                android:layout_below="@+id/r_indian"
+                android:background="@android:color/white"
+                >
+
+                <ImageView
+                    android:id="@+id/product_continental_image"
+                    android:layout_width="160dp"
+                    android:layout_height="100dp"
+                    android:text="User Name"
+                    android:textColor="@android:color/white"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="5dp"/>
+
+                <TextView
+                    android:id="@+id/product_continental_name"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:text="Continental"
+                    android:textStyle="bold"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="25dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_alignParentEnd="true"/>
+
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:id="@+id/r_chinese"
+                android:layout_below="@+id/r_continental"
+                android:background="@android:color/white"
+                >
+
+                <ImageView
+                    android:id="@+id/product_chinese_image"
+                    android:layout_width="160dp"
+                    android:layout_height="100dp"
+                    android:text="User Name"
+                    android:textColor="@android:color/white"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="5dp"/>
+
+                <TextView
+                    android:id="@+id/product_chinese_name"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:text="Chinese"
+                    android:textStyle="bold"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="25dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_alignParentEnd="true"/>
+
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:id="@+id/r_bakery"
+                android:layout_below="@+id/r_chinese"
+                android:background="@android:color/white"
+                >
+
+                <ImageView
+                    android:id="@+id/product_bakery_image"
+                    android:layout_width="160dp"
+                    android:layout_height="100dp"
+                    android:text="User Name"
+                    android:textColor="@android:color/white"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="5dp"/>
+
+                <TextView
+                    android:id="@+id/product_bakery_name"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:text="Bakery"
+                    android:textStyle="bold"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="25dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_alignParentEnd="true"/>
+
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:id="@+id/r_rotis"
+                android:layout_below="@+id/r_bakery"
+                android:background="@android:color/white"
+                >
+
+                <ImageView
+                    android:id="@+id/product_rotis_image"
+                    android:layout_width="160dp"
+                    android:layout_height="100dp"
+                    android:text="User Name"
+                    android:textColor="@android:color/white"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="5dp"/>
+
+                <TextView
+                    android:id="@+id/product_rotis_name"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:text="Rotis"
+                    android:textStyle="bold"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="25dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_alignParentEnd="true"/>
+
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:id="@+id/r_pizza"
+                android:layout_below="@+id/r_rotis"
+                android:background="@android:color/white"
+                >
+
+                <ImageView
+                    android:id="@+id/product_pizza_image"
+                    android:layout_width="160dp"
+                    android:layout_height="100dp"
+                    android:text="User Name"
+                    android:textColor="@android:color/white"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="5dp"/>
+
+                <TextView
+                    android:id="@+id/product_pizza_name"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:text="Pizza"
+                    android:textStyle="bold"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="25dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_alignParentEnd="true"/>
+
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

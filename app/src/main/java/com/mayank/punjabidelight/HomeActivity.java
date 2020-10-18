@@ -1,16 +1,33 @@
 package com.mayank.punjabidelight;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -22,20 +39,115 @@ import androidx.appcompat.widget.Toolbar;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-
-
+RelativeLayout r_indian,r_shwarma,r_chinese,r_bakery,r_tandoor,r_italian;
+    FirebaseUser currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        r_indian=(RelativeLayout)findViewById(R.id.r_indian);
+        r_shwarma=(RelativeLayout)findViewById(R.id.r_shwarma);
+        r_chinese=(RelativeLayout)findViewById(R.id.r_chinese);
+        r_bakery=(RelativeLayout)findViewById(R.id.r_bakery);
+        r_tandoor=(RelativeLayout)findViewById(R.id.r_tandoor);
+        r_italian=(RelativeLayout)findViewById(R.id.r_Italian);
+
+
+        FirebaseDatabase.getInstance().getReference().child("Orders").child(currentUser.getPhoneNumber()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                notification();
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        r_indian.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(HomeActivity.this,ProductsViewActivity.class);
+                intent.putExtra("category","indian");
+                startActivity(intent);
+            }
+        });
+
+        r_shwarma.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(HomeActivity.this,ProductsViewActivity.class);
+                intent.putExtra("category","shwarma");
+                startActivity(intent);
+            }
+        });
+
+        r_chinese.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(HomeActivity.this,ProductsViewActivity.class);
+                intent.putExtra("category","chinese");
+                startActivity(intent);
+            }
+        });
+
+        r_italian.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(HomeActivity.this,ProductsViewActivity.class);
+                intent.putExtra("category","italian");
+                startActivity(intent);
+            }
+        });
+
+        r_bakery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(HomeActivity.this,ProductsViewActivity.class);
+                intent.putExtra("category","bakery");
+                startActivity(intent);
+            }
+        });
+
+        r_tandoor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(HomeActivity.this,ProductsViewActivity.class);
+                intent.putExtra("category","tandoor");
+                startActivity(intent);
+            }
+        });
+
+
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Punjabi Delight");
         setSupportActionBar(toolbar);
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent=new Intent(HomeActivity.this,CartActivity.class);
+                startActivity(intent);
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -65,6 +177,27 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id=item.getItemId();
 
+        if(id == R.id.nav_cart) {
+
+            Intent intent = new Intent(HomeActivity.this, CartActivity.class);
+            startActivity(intent);
+
+
+
+        } else if (id == R.id.my_order) {
+            Intent intent = new Intent(HomeActivity.this, MyOrderActivity.class);
+            startActivity(intent);
+
+
+
+        } else if(id == R.id.nav_search) {
+
+
+
+        } else if (id== R.id.nav_settings) {
+
+            Toast.makeText(HomeActivity.this,"Call us on 9993716592 or 7441100734",Toast.LENGTH_LONG).show();
+        }
 
         DrawerLayout drawer=(DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -82,5 +215,25 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         {
             super.onBackPressed();
         }
+    }
+    private void notification() {
+
+        String message = "Your Order is on the way";
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel =
+                    new NotificationChannel("n","n", NotificationManager.IMPORTANCE_DEFAULT);
+
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"n")
+                .setContentText("Punjabi Delight")
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setAutoCancel(true)
+                .setContentText(message);
+
+        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
+        managerCompat.notify(999,builder.build());
     }
 }

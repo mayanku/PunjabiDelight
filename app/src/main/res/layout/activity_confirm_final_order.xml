@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ConfirmFinalOrderActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt"
+        android:text="Please Confirm your Shipment Details"
+        android:textSize="18dp"
+        android:textColor="#5A6FB3"
+        android:layout_margin="25dp"
+        android:textStyle="bold"
+        android:textAlignment="center"/>
+
+    <EditText
+        android:id="@+id/shipment_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt"
+        android:background="@drawable/input_design"
+        android:padding="20dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+
+        android:hint="Your Name"/>
+
+    <EditText
+        android:id="@+id/shipment_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLength="10"
+        android:layout_below="@+id/shipment_name"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/input_design"
+        android:padding="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:inputType="number"
+        android:hint="Your Number"
+        />
+
+    <EditText
+        android:id="@+id/shipment_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/shipment_phone_number"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/input_design"
+        android:padding="20dp"
+        android:layout_marginRight="20dp"
+        android:hint="Your Address"
+        />
+
+
+    <EditText
+        android:id="@+id/shipment_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/shipment_address"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/input_design"
+        android:padding="20dp"
+        android:hint="Nearby Landmark Also mention if you have any special request"
+        />
+
+
+    <TextView
+        android:id="@+id/totalprice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/shipment_city"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/input_design"
+        android:padding="10dp"
+        android:text="Total Price"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/confirm_order_btn_online"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/totalprice"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+
+        android:padding="20dp"
+        android:text="Confirm and PAY ONLINE"
+        android:textColor="@android:color/white"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/confirm_order_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/confirm_order_btn_online"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="@android:color/white"
+        android:padding="20dp"
+        android:text="Confirm and PAY ON DELIVERY"
+        android:textSize="20dp" />
+
+
+</RelativeLayout>

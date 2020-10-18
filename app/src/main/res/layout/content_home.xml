@@ -4,18 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#C5BFBF"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_main">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:src="@drawable/nav_cart"
+        android:src="@drawable/punjabidelight"
+        android:scaleType="centerCrop"
         android:padding="20dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         android:id="@+id/img"
         />
     <TextView
@@ -44,9 +46,9 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_margin="10dp"
+                android:layout_height="100dp"
+                android:padding="2dp"
+                android:layout_margin="2dp"
                 android:id="@+id/r_indian"
                 android:layout_below="@+id/img"
                 android:background="@android:color/white"
@@ -55,88 +57,66 @@
                 <ImageView
                     android:id="@+id/product_indian_image"
                     android:layout_width="160dp"
-                    android:layout_height="100dp"
-                    android:text="User Name"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/indian_thali"
                     android:textColor="@android:color/white"
-                    android:textSize="14dp"
                     android:layout_marginLeft="5dp"/>
 
                 <TextView
                     android:id="@+id/product_indian_name"
-                    android:layout_width="160dp"
-                    android:layout_height="wrap_content"
-                    android:text="Indian"
-                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="INDIAN"
+                    android:layout_toRightOf="@id/product_indian_image"
+                    android:textStyle="italic"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
                     android:textColor="@android:color/black"
                     android:textSize="25dp"
-                    android:padding="20dp"
+                    android:padding="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_alignParentEnd="true"/>
 
 
             </RelativeLayout>
+
+
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_margin="10dp"
-                android:id="@+id/r_continental"
+                android:layout_height="100dp"
+                android:padding="2dp"
+                android:layout_margin="2dp"
+                android:id="@+id/r_chinese"
                 android:layout_below="@+id/r_indian"
                 android:background="@android:color/white"
-                >
-
-                <ImageView
-                    android:id="@+id/product_continental_image"
-                    android:layout_width="160dp"
-                    android:layout_height="100dp"
-                    android:text="User Name"
-                    android:textColor="@android:color/white"
-                    android:textSize="14dp"
-                    android:layout_marginLeft="5dp"/>
-
-                <TextView
-                    android:id="@+id/product_continental_name"
-                    android:layout_width="160dp"
-                    android:layout_height="wrap_content"
-                    android:text="Continental"
-                    android:textStyle="bold"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="25dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_alignParentEnd="true"/>
-
-
-            </RelativeLayout>
-            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_margin="10dp"
-                android:id="@+id/r_chinese"
-                android:layout_below="@+id/r_continental"
-                android:background="@android:color/white"
+
                 >
 
                 <ImageView
                     android:id="@+id/product_chinese_image"
                     android:layout_width="160dp"
-                    android:layout_height="100dp"
-                    android:text="User Name"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/chinese"
+                    android:scaleType="centerCrop"
                     android:textColor="@android:color/white"
-                    android:textSize="14dp"
-                    android:layout_marginLeft="5dp"/>
+                    android:layout_marginLeft="5dp"
+                    />
 
                 <TextView
                     android:id="@+id/product_chinese_name"
-                    android:layout_width="160dp"
-                    android:layout_height="wrap_content"
-                    android:text="Chinese"
-                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="CHINESE"
+                    android:layout_toRightOf="@id/product_chinese_image"
+                    android:textStyle="italic"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
                     android:textColor="@android:color/black"
                     android:textSize="25dp"
+                    android:padding="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_alignParentEnd="true"/>
 
@@ -144,103 +124,164 @@
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_margin="10dp"
-                android:id="@+id/r_bakery"
+                android:layout_height="100dp"
+                android:padding="2dp"
+                android:layout_margin="2dp"
+                android:id="@+id/r_tandoor"
                 android:layout_below="@+id/r_chinese"
+                android:background="@android:color/white"
+                >
+
+                <ImageView
+                    android:id="@+id/product_tandoor_image"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/tandoor"
+                    android:scaleType="centerCrop"
+                    android:textColor="@android:color/white"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="5dp"
+                    />
+
+                <TextView
+                    android:id="@+id/product_tandoor_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="TANDOOR"
+                    android:layout_toRightOf="@id/product_tandoor_image"
+                    android:textStyle="italic"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="25dp"
+                    android:padding="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_alignParentEnd="true"
+                    />
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:padding="2dp"
+                android:layout_margin="2dp"
+                android:id="@+id/r_bakery"
+                android:layout_below="@+id/r_tandoor"
                 android:background="@android:color/white"
                 >
 
                 <ImageView
                     android:id="@+id/product_bakery_image"
                     android:layout_width="160dp"
-                    android:layout_height="100dp"
-                    android:text="User Name"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/bakery"
+                    android:scaleType="centerCrop"
                     android:textColor="@android:color/white"
                     android:textSize="14dp"
-                    android:layout_marginLeft="5dp"/>
+                    android:layout_marginLeft="5dp"
+                    />
 
                 <TextView
                     android:id="@+id/product_bakery_name"
-                    android:layout_width="160dp"
-                    android:layout_height="wrap_content"
-                    android:text="Bakery"
-                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="BAKERY"
+                    android:layout_toRightOf="@id/product_bakery_image"
+                    android:textStyle="italic"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
                     android:textColor="@android:color/black"
                     android:textSize="25dp"
+                    android:padding="5dp"
                     android:layout_marginLeft="5dp"
-                    android:layout_alignParentEnd="true"/>
+                    android:layout_alignParentEnd="true"
+                    />
 
 
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_margin="10dp"
-                android:id="@+id/r_rotis"
+                android:layout_height="100dp"
+                android:padding="2dp"
+                android:layout_margin="2dp"
+                android:id="@+id/r_Italian"
                 android:layout_below="@+id/r_bakery"
                 android:background="@android:color/white"
                 >
 
                 <ImageView
-                    android:id="@+id/product_rotis_image"
+                    android:id="@+id/product_italian_image"
                     android:layout_width="160dp"
-                    android:layout_height="100dp"
-                    android:text="User Name"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/italian"
+                    android:scaleType="centerCrop"
                     android:textColor="@android:color/white"
                     android:textSize="14dp"
                     android:layout_marginLeft="5dp"/>
 
                 <TextView
-                    android:id="@+id/product_rotis_name"
-                    android:layout_width="160dp"
-                    android:layout_height="wrap_content"
-                    android:text="Rotis"
-                    android:textStyle="bold"
+                    android:id="@+id/product_italian_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="ITALIAN"
+                    android:layout_toRightOf="@id/product_italian_image"
+                    android:textStyle="italic"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
                     android:textColor="@android:color/black"
                     android:textSize="25dp"
+                    android:padding="5dp"
                     android:layout_marginLeft="5dp"
-                    android:layout_alignParentEnd="true"/>
+                    android:layout_alignParentEnd="true"
+                    />
 
 
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_margin="10dp"
-                android:id="@+id/r_pizza"
-                android:layout_below="@+id/r_rotis"
+                android:layout_height="100dp"
+                android:padding="2dp"
+                android:layout_margin="2dp"
+                android:id="@+id/r_shwarma"
+                android:layout_below="@+id/r_italian"
                 android:background="@android:color/white"
                 >
 
                 <ImageView
-                    android:id="@+id/product_pizza_image"
+                    android:id="@+id/product_shwarma_image"
                     android:layout_width="160dp"
-                    android:layout_height="100dp"
-                    android:text="User Name"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/continental"
+                    android:scaleType="centerCrop"
                     android:textColor="@android:color/white"
                     android:textSize="14dp"
                     android:layout_marginLeft="5dp"/>
 
                 <TextView
-                    android:id="@+id/product_pizza_name"
-                    android:layout_width="160dp"
-                    android:layout_height="wrap_content"
-                    android:text="Pizza"
-                    android:textStyle="bold"
-                    android:layout_marginRight="5dp"
+                    android:id="@+id/product_shwarma_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="SHWARMA"
+                    android:layout_toRightOf="@id/product_shwarma_image"
                     android:textColor="@android:color/black"
                     android:textSize="25dp"
+                    android:textStyle="italic"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_alignParentEnd="true"/>
 
 
             </RelativeLayout>
+
+
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

@@ -194,9 +194,18 @@ RelativeLayout r_indian,r_shwarma,r_chinese,r_bakery,r_tandoor,r_italian;
 
 
 
-        } else if (id== R.id.nav_settings) {
+        }
+        else if(id == R.id.nav_logout) {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(HomeActivity.this,LoginActivity.class));
+            finish();
 
-            Toast.makeText(HomeActivity.this,"Call us on 9993716592 or 7441100734",Toast.LENGTH_LONG).show();
+        }
+
+
+        else if (id== R.id.nav_settings) {
+
+            Toast.makeText(HomeActivity.this,"Call us on 9993716592 or 7441100734 for any feedbacks",Toast.LENGTH_LONG).show();
         }
 
         DrawerLayout drawer=(DrawerLayout) findViewById(R.id.drawer_layout);

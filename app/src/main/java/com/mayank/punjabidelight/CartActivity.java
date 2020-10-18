@@ -59,11 +59,14 @@ public class CartActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 txtTotalAmount.setText("Total Price");
-
+                if (overTotalPrice==0){
+                    Toast.makeText(CartActivity.this,"Add Atleast one item in your cart,",Toast.LENGTH_SHORT).show();
+                }
+                else{
                 Intent intent=new Intent(CartActivity.this,ConfirmFinalOrderActivity.class);
                 intent.putExtra("Total Price",String.valueOf(overTotalPrice));
                 startActivity(intent);
-                finish();
+                finish();}
             }
         });
     }

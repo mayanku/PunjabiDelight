@@ -260,6 +260,9 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
             Toast.makeText(this,"Please Provide your full name",Toast.LENGTH_LONG).show();
 
         }
+        else if (phoneEditText.length()<10) {
+            Toast.makeText(ConfirmFinalOrderActivity.this, "Please Provide Correct Phone Number", Toast.LENGTH_SHORT).show();
+        }
 
         else  if (TextUtils.isEmpty(phoneEditText.getText().toString()))
         {

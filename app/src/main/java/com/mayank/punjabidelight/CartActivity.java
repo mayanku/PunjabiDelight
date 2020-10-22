@@ -72,6 +72,12 @@ public class CartActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        Intent intent=new Intent(CartActivity.this,HomeActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
 
@@ -185,9 +191,7 @@ public class CartActivity extends AppCompatActivity {
                     txtTotalAmount.setText("Order In Process ");
                     recyclerView.setVisibility(View.GONE);
                     txtMsg1.setVisibility(View.VISIBLE);
-
                     NextProcessBtn.setVisibility(View.GONE);
-
                 }
             }
             @Override

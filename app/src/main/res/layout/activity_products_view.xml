@@ -3,10 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#CACDDF"
     android:layout_height="match_parent"
-    tools:context=".ProductsViewActivity">
+    tools:context=".ProductsViewActivity"
+   >
 
-    <TextView
+    <include
+        android:id="@+id/toolbar1"
+        layout="@layout/toolbar1"/>
+
+ <!--   <TextView
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:text="Indian Dishes"
@@ -14,18 +20,149 @@
         android:textSize="25dp"
         android:padding="10dp"
         android:id="@+id/dishheading"
-        android:layout_alignParentTop="true"
         android:textColor="@android:color/white"
-        android:gravity="center"/>
+        android:gravity="center"/>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cycler_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/dishheading"
+        android:layout_below="@+id/toolbar1"
         android:scrollbars="vertical">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/container_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true">
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:layout_margin="20dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:clickable="true"
+            android:textColor="@android:color/white"
+            android:src="@drawable/ic_menu_resturantmenu"
+            android:text="Menu"
+            app:fabSize="normal"
+            app:icon="@drawable/ic_menu_resturantmenu"
+            app:iconTintMode="multiply"
+            android:id="@+id/menu"
+            app:rippleColor="@color/colorPrimaryDark" />
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/floating_indian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/container_layout"
+        android:layout_gravity="bottom|center"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:clickable="true"
+        android:gravity="center"
+        android:src="@drawable/ic_menu_resturantmenu"
+        android:text="Indian"
+        android:visibility="invisible"
+        app:fabSize="normal"
+        app:rippleColor="@color/colorPrimaryDark"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/floating_chinese"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/floating_indian"
+        android:layout_gravity="bottom|center"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:clickable="true"
+        android:layout_marginBottom="3dp"
+        android:gravity="center"
+        android:src="@drawable/ic_menu_resturantmenu"
+        android:text="Chinese"
+        android:visibility="invisible"
+        app:fabSize="normal"
+        app:rippleColor="@color/colorPrimaryDark"
+        app:srcCompat="@drawable/ic_launcher_background" />
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/floating_bakery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/floating_chinese"
+        android:layout_gravity="bottom|center"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:clickable="true"
+        android:layout_marginBottom="3dp"
+        android:gravity="center"
+        android:src="@drawable/ic_menu_resturantmenu"
+        android:text="Bakery"
+        android:visibility="invisible"
+        app:fabSize="normal"
+        app:rippleColor="@color/colorPrimaryDark"
+        app:srcCompat="@drawable/ic_launcher_background" />
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/floating_tandoor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/floating_bakery"
+        android:layout_gravity="bottom|center"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:clickable="true"
+        android:layout_marginBottom="3dp"
+        android:gravity="center"
+        android:src="@drawable/ic_menu_resturantmenu"
+        android:text="Tandoor"
+        android:visibility="invisible"
+        app:fabSize="normal"
+        app:rippleColor="@color/colorPrimaryDark"
+        app:srcCompat="@drawable/ic_launcher_background" />
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/floating_italian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/floating_tandoor"
+        android:layout_gravity="bottom|center"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:clickable="true"
+        android:layout_marginBottom="3dp"
+        android:gravity="center"
+        android:src="@drawable/ic_menu_resturantmenu"
+        android:text="Italian"
+        android:visibility="invisible"
+        app:fabSize="normal"
+        app:rippleColor="@color/colorPrimaryDark"
+        app:srcCompat="@drawable/ic_launcher_background" />
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/floating_shwarma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/floating_italian"
+        android:layout_gravity="bottom|center"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:clickable="true"
+        android:layout_marginBottom="3dp"
+        android:gravity="center"
+        android:src="@drawable/ic_menu_resturantmenu"
+        android:text="Shwarma"
+        android:visibility="invisible"
+        app:fabSize="normal"
+        app:rippleColor="@color/colorPrimaryDark"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
+
+
 
 
 

@@ -2,6 +2,8 @@ package com.mayank.punjabidelight;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import android.content.Context;
 import android.content.Intent;
@@ -45,6 +47,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
 
 
     private String orderRandomKey, payment_mode;
+    private static final String CHANNEL_ID="Punjabi Delight";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -346,6 +349,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(ConfirmFinalOrderActivity.this, "YourFinal Order has been Placed Successfully", Toast.LENGTH_LONG).show();
 
+                                        notification1();
                                         Intent intent = new Intent(ConfirmFinalOrderActivity.this, HomeActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);
@@ -360,7 +364,20 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
 
     }
 
-    private void moveGameRoom(final DatabaseReference fromPath, final DatabaseReference toPath) {
+    private void notification1() {
+
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_action_notification)
+                .setContentTitle("Your Order is Placed")
+                .setContentText("Tasty food will soon be delivered")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+        notificationManager.notify(1, builder.build());
+    }
+        private void moveGameRoom(final DatabaseReference fromPath, final DatabaseReference toPath) {
         fromPath.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

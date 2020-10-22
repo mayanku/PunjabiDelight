@@ -48,6 +48,16 @@
         android:layout_above="@+id/next_process_btn">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/next_process_btn"
+        android:padding="2dp"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:text="Click the product to edit or remove"/>
     <Button
         android:id="@+id/next_process_btn"
         android:layout_width="match_parent"

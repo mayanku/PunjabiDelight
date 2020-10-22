@@ -1,19 +1,24 @@
 package com.mayank.punjabidelight;
 
+import android.Manifest;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.SyncStateContract;
+import android.telephony.SmsManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -31,8 +36,10 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -216,10 +223,6 @@ RelativeLayout r_indian,r_shwarma,r_chinese,r_bakery,r_tandoor,r_italian;
 
 
 
-        } else if(id == R.id.nav_search) {
-
-
-
         }
         else if(id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
@@ -230,10 +233,10 @@ RelativeLayout r_indian,r_shwarma,r_chinese,r_bakery,r_tandoor,r_italian;
 
 
         else if (id== R.id.nav_settings) {
+            Intent intent = new Intent(HomeActivity.this, ContsctUsActivity.class);
+            startActivity(intent);
 
-            Toast.makeText(HomeActivity.this,"Call us on 9993716592 or 7441100734 for any feedbacks",Toast.LENGTH_LONG).show();
         }
-
         DrawerLayout drawer=(DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -241,34 +244,33 @@ RelativeLayout r_indian,r_shwarma,r_chinese,r_bakery,r_tandoor,r_italian;
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer=(DrawerLayout)findViewById(R.id.drawer_layout);
-        if(drawer.isDrawerOpen(GravityCompat.START))
-        {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }
-        else
-        {
-            super.onBackPressed();
-        }
+        } else {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            startActivity(intent);
+            //finish();
+            //  super.onBackPressed();
+            }
+
     }
     private void notification() {
 
-        String message = "Your Order is on the way";
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel =
-                    new NotificationChannel("n","n", NotificationManager.IMPORTANCE_DEFAULT);
 
-            NotificationManager manager = getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel);
-        }
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_action_notification)
+                .setContentTitle("Your Order is on the way")
+                .setContentText("You will receive your order in 20 minutes")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"n")
-                .setContentText("Punjabi Delight")
-                .setSmallIcon(R.drawable.ic_launcher_background)
-                .setAutoCancel(true)
-                .setContentText(message);
 
-        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
-        managerCompat.notify(999,builder.build());
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+        notificationManager.notify(1, builder.build());
+
     }
+
+
 }

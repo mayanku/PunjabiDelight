@@ -12,21 +12,30 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.mayank.punjabidelight.Model.Products;
 import com.mayank.punjabidelight.ViewHolder.ProductViewHolder;
 import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
 
 public class ProductsViewActivity extends AppCompatActivity {
 
@@ -34,6 +43,8 @@ public class ProductsViewActivity extends AppCompatActivity {
     private DatabaseReference ProductsRef;
     private TextView dishheading;
 
+
+    FirebaseUser currentUser;
     private ProgressDialog loadingBar;
 
     private RecyclerView recyclerView;
@@ -45,9 +56,7 @@ public class ProductsViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products_view);
-
-
-
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
         float_bakery=(ExtendedFloatingActionButton)findViewById(R.id.floating_bakery);
@@ -57,7 +66,6 @@ public class ProductsViewActivity extends AppCompatActivity {
         float_italian=(ExtendedFloatingActionButton)findViewById(R.id.floating_italian);
         float_tandoor=(ExtendedFloatingActionButton)findViewById(R.id.floating_tandoor);
         float_menu=(ExtendedFloatingActionButton)findViewById(R.id.menu);
-
 
 
 
@@ -115,7 +123,6 @@ public class ProductsViewActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
         isOpen=false;
 
@@ -180,6 +187,7 @@ public class ProductsViewActivity extends AppCompatActivity {
             }
         });
 
+
         ProductsRef= FirebaseDatabase.getInstance().getReference().child("Products").child(category);
 
         recyclerView=findViewById(R.id.cycler_menu);
@@ -188,7 +196,16 @@ public class ProductsViewActivity extends AppCompatActivity {
 
         layoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+
+
+
+
+
     }
+
+
+
+
 
     @Override
     public void onBackPressed() {
@@ -213,23 +230,123 @@ public class ProductsViewActivity extends AppCompatActivity {
         FirebaseRecyclerAdapter<Products, ProductViewHolder> adapter=
                 new FirebaseRecyclerAdapter<Products, ProductViewHolder>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull ProductViewHolder holder, int i, @NonNull final Products model) {
+                    protected void onBindViewHolder(@NonNull final ProductViewHolder holder, int i, @NonNull final Products model) {
+
+
+                        final DatabaseReference cartListRef=FirebaseDatabase.getInstance().getReference().child("Cart List");
+                        cartListRef.child("User View")
+                                .child(currentUser.getPhoneNumber())
+                                .child("Products")
+                                .child(model.getPid()).child("quantity").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                if (dataSnapshot.exists()){
+                                 String s= dataSnapshot.getValue().toString();
+                                 holder.numberButton1.setNumber(s);
+                                loadingBar.dismiss();}
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
 
                         holder.txtProductName.setText(model.getPname());
                         holder.txtProductDescription.setText(model.getDescription());
                         holder.txtProductPrice.setText("price = " +model.getPrice()+ " Rupees");
                         Picasso.get().load(model.getImage()).into(holder.imageView);
-                        loadingBar.dismiss();
+                       loadingBar.dismiss();
 
 
-                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        holder.numberButton1.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
+                            @Override
+                            public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
+                             //   Toast.makeText(ProductsViewActivity.this,holder.numberButton1.getNumber(),Toast.LENGTH_SHORT).show();
+                               if(holder.numberButton1.getNumber().equals("0")){
+                                   final DatabaseReference cartListRef=FirebaseDatabase.getInstance().getReference().child("Cart List");
+                                   cartListRef.child("User View")
+                                           .child(currentUser.getPhoneNumber())
+                                           .child("Products")
+                                           .child(model.getPid())
+                                           .removeValue()
+                                           .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                               @Override
+                                               public void onComplete(@NonNull Task<Void> task) {
+                                                   if (task.isSuccessful())
+                                                   {
+                                                    //   Toast.makeText(CartActivity.this,"Item Removed Successfully,",Toast.LENGTH_SHORT).show();
+                                                   }
+                                               }
+                                           });
+                               }
+                               else{
+
+
+                                final String saveCurrentTime, saveCurrentDate;
+                                Calendar calForDate= Calendar.getInstance();
+                                SimpleDateFormat currentDate= new SimpleDateFormat("MMM dd, yyyy");
+                                saveCurrentDate=currentDate.format(calForDate.getTime());
+
+                                SimpleDateFormat currentTime=new SimpleDateFormat("HH:mm:ss a");
+                                saveCurrentTime = currentTime.format(calForDate.getTime());
+
+                                final DatabaseReference cartListRef=FirebaseDatabase.getInstance().getReference().child("Cart List");
+
+
+                                final HashMap<String, Object> cartMap=new HashMap<>();
+                                cartMap.put("pid",model.getPid());
+                                cartMap.put("pname",model.getPname());
+                                cartMap.put("price",model.getPrice());
+                                cartMap.put("image",model.getImage());
+                                cartMap.put("date",saveCurrentDate);
+                                cartMap.put("time",saveCurrentTime);
+                                cartMap.put("quantity",holder.numberButton1.getNumber());
+                                cartMap.put("discount", "");
+
+
+                                cartListRef.child("User View").child(currentUser.getPhoneNumber())
+                                        .child("Products").child(model.getPid())
+                                        .updateChildren(cartMap)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+
+                                                if (task.isSuccessful())
+                                                {
+                                                    cartListRef.child("Admin View").child(currentUser.getPhoneNumber())
+                                                            .child("Products").child(model.getPid())
+                                                            .updateChildren(cartMap)
+                                                            .addOnCompleteListener(
+                                                                    new OnCompleteListener<Void>() {
+                                                                        @Override
+                                                                        public void onComplete(@NonNull Task<Void> task) {
+
+                                                                            if(task.isSuccessful())
+                                                                            {
+                                                                            //    Toast.makeText(ProductDetailsActivity.this,"Added to Cart",Toast.LENGTH_LONG).show();
+
+                                                                            }
+                                                                        }
+                                                                    });
+                                                }
+                                            }
+                                        });
+                            }}
+
+                        });
+
+
+                       holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
-                                Intent intent=new Intent(ProductsViewActivity.this,ProductDetailsActivity.class);
-                                intent.putExtra("category",category);
-                                intent.putExtra("pid",model.getPid());
-                                startActivity(intent);
+                    //            Intent intent=new Intent(ProductsViewActivity.this,ProductDetailsActivity.class);
+                    //            intent.putExtra("category",category);
+                    //            intent.putExtra("pid",model.getPid());
+                                //   startActivity(intent);
                             }
                         });
                     }
@@ -246,4 +363,8 @@ public class ProductsViewActivity extends AppCompatActivity {
         adapter.startListening();
 
     }
+
+
+
+
 }

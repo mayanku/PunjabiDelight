@@ -2,9 +2,11 @@ package com.mayank.punjabidelight;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -13,12 +15,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,11 +36,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mayank.punjabidelight.Model.Cart;
+import com.mayank.punjabidelight.Model.CartProducts;
+import com.mayank.punjabidelight.ViewHolder.CartProductViewHolder;
+import com.mayank.punjabidelight.ViewHolder.ProductViewHolder;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 public class ConfirmFinalOrderActivity extends AppCompatActivity {
 
@@ -41,8 +55,9 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
     private Button confirmOrderBtn, confirmpayonline;
     String TAG = "Payment Error";
     private TextView total;
-    private String totalAmount = "";
+    private int totalAmount = 0;
     FirebaseUser currentUser;
+    private ProgressDialog loadingBar;
     DatabaseReference transRef;
 
 
@@ -55,12 +70,36 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_confirm_final_order);
 
 
-       transRef = FirebaseDatabase.getInstance().getReference()
+
+        Toolbar toolbar1= findViewById(R.id.toolbar3);
+        setSupportActionBar(toolbar1);
+        TextView textView = toolbar1.findViewById(R.id.toolbar_title);
+        textView.setText("Confirm Shipment Details");
+
+        ImageView imgs=toolbar1.findViewById(R.id.img_back);
+        imgs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ConfirmFinalOrderActivity.this,CartActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ImageView imgss=toolbar1.findViewById(R.id.img_cart);
+        imgss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ConfirmFinalOrderActivity.this,CartActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        transRef = FirebaseDatabase.getInstance().getReference()
                 .child("TransactionsReceipt");
-        totalAmount = getIntent().getStringExtra("Total Price");
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        Toast.makeText(this, " Total Price = " + totalAmount, Toast.LENGTH_LONG).show();
+    //    Toast.makeText(this, " Total Price = " + totalAmount, Toast.LENGTH_LONG).show();
 
         confirmOrderBtn = (Button) findViewById(R.id.confirm_order_btn);
         confirmpayonline = (Button) findViewById(R.id.confirm_order_btn_online);
@@ -69,7 +108,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
         addressEditText = (EditText) findViewById(R.id.shipment_address);
         cityEditText = (EditText) findViewById(R.id.shipment_city);
         total = (TextView) findViewById(R.id.totalprice);
-        total.setText("Total Amount=" + totalAmount);
+
 
         confirmpayonline.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +126,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
                 } else if (TextUtils.isEmpty(cityEditText.getText().toString())) {
                     Toast.makeText(ConfirmFinalOrderActivity.this, "Please Provide full Name", Toast.LENGTH_SHORT).show();
                 } else {
-                    String amount = totalAmount;
+                    String amount = Integer.toString(totalAmount);
                     String upiId = "arpitverma026@okaxis";
                     String name = "Punjabi Delight";
                     String note = "Food Bill";
@@ -217,8 +256,10 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
                     Toast.makeText(ConfirmFinalOrderActivity.this, "Transaction successful.", Toast.LENGTH_SHORT).show();
                     Log.e("UPI", "payment successfull: " + approvalRefNo);
                 } else if ("Payment cancelled by user.".equals(paymentCancel)) {
+                //    Intent intent=new Intent(ConfirmFinalOrderActivity.this, CartActivity.class);
                     Toast.makeText(ConfirmFinalOrderActivity.this, "Payment cancelled by user.", Toast.LENGTH_SHORT).show();
                     Log.e("UPI", "Cancelled by user: " + approvalRefNo);
+                 //   startActivity(intent);
 
                 } else {
                     Toast.makeText(ConfirmFinalOrderActivity.this, "Transaction failed.Please try again", Toast.LENGTH_SHORT).show();
@@ -320,7 +361,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
 
 
         HashMap<String, Object> orderMap = new HashMap<>();
-        orderMap.put("totalAmount", totalAmount);
+        orderMap.put("totalAmount", Integer.toString(totalAmount));
         orderMap.put("name", nameEditText.getText().toString());
         orderMap.put("phone", phoneEditText.getText().toString());
         orderMap.put("address", addressEditText.getText().toString());
@@ -397,5 +438,50 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        loadingBar=new ProgressDialog(this);
+        loadingBar.setTitle("Showing Delicious dishes");
+        loadingBar.setMessage("Please wait we are updating our menu");
+        loadingBar.setCanceledOnTouchOutside(false);
+        loadingBar.show();
+        totalAmount=0;
+
+        final DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference().child("Cart List");
+        cartListRef.child("User View")
+                .child(currentUser.getPhoneNumber())
+                .child("Products").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    CartProducts cart = snapshot.getValue(CartProducts.class);
+                    int oneTypeProductTPrice =((Integer.parseInt(cart.getPrice()))) * Integer.parseInt(cart.getQuantity());
+                    System.out.println(oneTypeProductTPrice);
+                    totalAmount=totalAmount+oneTypeProductTPrice;
+                    System.out.println(totalAmount);
+                    total.setText("Total Amount=" + Integer.toString(totalAmount));
+                }
+                loadingBar.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+       // Toast.makeText(this, " Total Price = " + Integer.toString(totalAmount), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent=new Intent(ConfirmFinalOrderActivity.this,CartActivity.class);
+        startActivity(intent);
     }
 }

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginTop="20dp"
+    android:layout_marginTop="10dp"
     android:layout_marginStart="15dp"
     android:layout_marginEnd="15dp"
     app:cardElevation="15dp">
@@ -14,7 +14,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/product_name"
+            android:id="@+id/product_name_cart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Product Name"
@@ -24,57 +24,72 @@
             android:textColor="#3A275C" />
 
         <ImageView
-            android:id="@+id/product_image"
+            android:id="@+id/product_image_cart"
             android:layout_width="220dp"
-            android:layout_height="129dp"
-            android:layout_below="@+id/product_name"
+            android:layout_height="100dp"
+            android:layout_below="@+id/product_name_cart"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="2dp"
             android:layout_marginRight="5dp"
             android:padding="5dp"
             android:scaleType="centerCrop" />
         <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
-            android:id="@+id/number_btn1"
+            android:id="@+id/number_btn_cart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="3dp"
             android:layout_centerVertical="true"
             app:textSize="5dp"
             android:foregroundGravity="center_vertical"
-            android:layout_below="@id/product_name"
+            android:layout_below="@id/product_name_cart"
             android:layout_centerHorizontal="true"
             app:initialNumber="0"
             app:backGroundColor="@color/colorPrimaryDark"
             app:finalNumber="10"
             android:padding="5dp"
             android:gravity="center"
-            android:layout_toRightOf="@+id/product_image"
+            android:layout_toRightOf="@+id/product_image_cart"
             android:layout_marginTop="30dp">
 
         </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
 
         <TextView
-            android:id="@+id/product_price"
+            android:id="@+id/product_cart_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/product_image"
+            android:layout_below="@+id/product_image_cart"
             android:text="Product Price"
-            android:textAlignment="center"
+            android:textAlignment="textStart"
             android:textSize="14dp"
             android:textStyle="bold"
             android:padding="5dp"
             android:textColor="#3A275C" />
         <TextView
-            android:id="@+id/product_description"
+            android:id="@+id/product_cart_totalprice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/product_price"
-            android:text="Product Descripton"
-            android:textAlignment="center"
+            android:layout_below="@+id/product_image_cart"
+            android:text="Total Product Price"
+            android:textAlignment="textEnd"
             android:textSize="14dp"
             android:textStyle="bold"
             android:padding="5dp"
             android:textColor="#3A275C" />
+
+        <Button
+            android:id="@+id/remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/product_cart_price"
+            android:layout_marginTop="2dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="REMOVE"
+            android:backgroundTint="@android:color/white"
+            app:icon="@drawable/ic_action_remove"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_red_light" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

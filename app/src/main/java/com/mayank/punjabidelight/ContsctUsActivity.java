@@ -1,12 +1,15 @@
 package com.mayank.punjabidelight;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +29,29 @@ public class ContsctUsActivity extends AppCompatActivity {
         review=(EditText)findViewById(R.id.review);
         button=(Button)findViewById(R.id.button);
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        Toolbar toolbar1= findViewById(R.id.toolbar4);
+        setSupportActionBar(toolbar1);
+        TextView textView = toolbar1.findViewById(R.id.toolbar_title);
+        textView.setText("REVIEW");
+
+        ImageView imgs=toolbar1.findViewById(R.id.img_back);
+        imgs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ContsctUsActivity.this,HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ImageView imgss=toolbar1.findViewById(R.id.img_cart);
+        imgss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ContsctUsActivity.this,CartActivity.class);
+                startActivity(intent);
+            }
+        });
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

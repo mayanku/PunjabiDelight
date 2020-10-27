@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#CACDDF"
     android:layout_height="match_parent"
     tools:context=".CartActivity">
 
@@ -40,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="#5A6FB3"
-        android:text="Next"
+        android:text="CHECKOUT"
         android:textColor="@android:color/white"
         android:textSize="20dp" />
 

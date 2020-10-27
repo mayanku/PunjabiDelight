@@ -2,6 +2,7 @@ package com.mayank.punjabidelight;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -30,6 +32,25 @@ public class MyOrderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_order);
+
+
+        Toolbar toolbar1= findViewById(R.id.toolbar5);
+        setSupportActionBar(toolbar1);
+        TextView textView = toolbar1.findViewById(R.id.toolbar_title);
+        textView.setText("My Orders");
+
+        ImageView imgs=toolbar1.findViewById(R.id.img_back);
+        imgs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MyOrderActivity.this,HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ImageView imgss=toolbar1.findViewById(R.id.img_cart);
+        imgss.setVisibility(View.INVISIBLE);
+
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         myordersRef = FirebaseDatabase.getInstance().getReference().child("MyOrders")

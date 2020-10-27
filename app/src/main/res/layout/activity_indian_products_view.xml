@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:background="#CACDDF"
     android:layout_height="match_parent"
-    tools:context=".ProductsViewActivity"
-   >
+    tools:context=".IndianProductsViewActivity"
+    >
 
     <include
-        android:id="@+id/toolbar1"
+        android:id="@+id/toolbar_indian"
         layout="@layout/toolbar1"/>
 
 
@@ -17,7 +17,7 @@
         android:id="@+id/cycler_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar1"
+        android:layout_below="@+id/toolbar_indian"
         android:scrollbars="vertical">
 
     </androidx.recyclerview.widget.RecyclerView>
@@ -38,7 +38,7 @@
             android:clickable="true"
             android:textColor="@android:color/white"
             android:src="@drawable/ic_menu_resturantmenu"
-            android:text="Menu"
+            android:text="Filter"
             app:fabSize="normal"
             app:icon="@drawable/ic_menu_resturantmenu"
             app:iconTintMode="multiply"
@@ -49,7 +49,7 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/floating_indian"
+        android:id="@+id/floating_dhabha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/container_layout"
@@ -58,18 +58,17 @@
         android:textColor="@android:color/white"
         android:clickable="true"
         android:gravity="center"
-        android:src="@drawable/ic_menu_resturantmenu"
-        android:text="Indian"
+        android:text="DHABE SE"
         android:visibility="invisible"
         app:fabSize="normal"
         app:rippleColor="@color/colorPrimaryDark"
         app:srcCompat="@drawable/ic_launcher_background" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/floating_chinese"
+        android:id="@+id/floating_paneer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/floating_indian"
+        android:layout_above="@+id/floating_dhabha"
         android:layout_gravity="bottom|center"
         android:backgroundTint="@color/colorPrimary"
         android:textColor="@android:color/white"
@@ -77,16 +76,16 @@
         android:layout_marginBottom="3dp"
         android:gravity="center"
         android:src="@drawable/ic_menu_resturantmenu"
-        android:text="Chinese"
+        android:text="PANEER SE"
         android:visibility="invisible"
         app:fabSize="normal"
         app:rippleColor="@color/colorPrimaryDark"
         app:srcCompat="@drawable/ic_launcher_background" />
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/floating_bakery"
+        android:id="@+id/floating_roti"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/floating_chinese"
+        android:layout_above="@+id/floating_paneer"
         android:layout_gravity="bottom|center"
         android:backgroundTint="@color/colorPrimary"
         android:textColor="@android:color/white"
@@ -94,16 +93,17 @@
         android:layout_marginBottom="3dp"
         android:gravity="center"
         android:src="@drawable/ic_menu_resturantmenu"
-        android:text="Bakery"
+        android:text="ROTIS/BREADS"
         android:visibility="invisible"
         app:fabSize="normal"
         app:rippleColor="@color/colorPrimaryDark"
         app:srcCompat="@drawable/ic_launcher_background" />
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/floating_tandoor"
+        android:id="@+id/floating_all"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/floating_bakery"
+        android:layout_above="@+id/floating_roti"
         android:layout_gravity="bottom|center"
         android:backgroundTint="@color/colorPrimary"
         android:textColor="@android:color/white"
@@ -111,65 +111,10 @@
         android:layout_marginBottom="3dp"
         android:gravity="center"
         android:src="@drawable/ic_menu_resturantmenu"
-        android:text="Tandoor"
+        android:text="SHOW ALL"
         android:visibility="invisible"
         app:fabSize="normal"
         app:rippleColor="@color/colorPrimaryDark"
         app:srcCompat="@drawable/ic_launcher_background" />
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/floating_italian"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/floating_tandoor"
-        android:layout_gravity="bottom|center"
-        android:backgroundTint="@color/colorPrimary"
-        android:textColor="@android:color/white"
-        android:clickable="true"
-        android:layout_marginBottom="3dp"
-        android:gravity="center"
-        android:src="@drawable/ic_menu_resturantmenu"
-        android:text="Italian"
-        android:visibility="invisible"
-        app:fabSize="normal"
-        app:rippleColor="@color/colorPrimaryDark"
-        app:srcCompat="@drawable/ic_launcher_background" />
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/floating_shwarma"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/floating_italian"
-        android:layout_gravity="bottom|center"
-        android:backgroundTint="@color/colorPrimary"
-        android:textColor="@android:color/white"
-        android:clickable="true"
-        android:layout_marginBottom="3dp"
-        android:gravity="center"
-        android:text="Shwarma"
-        android:visibility="invisible"
-        app:fabSize="normal"
-        app:rippleColor="@color/colorPrimaryDark"
-        app:srcCompat="@drawable/ic_launcher_background" />
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/floating_rices"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/floating_shwarma"
-        android:layout_gravity="bottom|center"
-        android:backgroundTint="@color/colorPrimary"
-        android:textColor="@android:color/white"
-        android:clickable="true"
-        android:layout_marginBottom="3dp"
-        android:gravity="center"
-        android:text="RICE"
-        android:visibility="invisible"
-        app:fabSize="normal"
-        app:rippleColor="@color/colorPrimaryDark"
-        app:srcCompat="@drawable/ic_launcher_background" />
-
-
-
-
-
-
 
 </RelativeLayout>

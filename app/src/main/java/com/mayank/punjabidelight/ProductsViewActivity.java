@@ -49,7 +49,7 @@ public class ProductsViewActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
-    ExtendedFloatingActionButton float_indian,float_shwarma,float_chinese,float_bakery,float_tandoor,float_menu,float_italian;
+    ExtendedFloatingActionButton float_indian,float_shwarma,float_chinese,float_bakery,float_tandoor,float_menu,float_italian,float_rice;
     private boolean isOpen= false;
 
     @Override
@@ -66,6 +66,7 @@ public class ProductsViewActivity extends AppCompatActivity {
         float_italian=(ExtendedFloatingActionButton)findViewById(R.id.floating_italian);
         float_tandoor=(ExtendedFloatingActionButton)findViewById(R.id.floating_tandoor);
         float_menu=(ExtendedFloatingActionButton)findViewById(R.id.menu);
+        float_rice=(ExtendedFloatingActionButton)findViewById(R.id.floating_rices);
 
 
 
@@ -73,7 +74,7 @@ public class ProductsViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent=new Intent(ProductsViewActivity.this,ProductsViewActivity.class);
+                Intent intent=new Intent(ProductsViewActivity.this,IndianProductsViewActivity.class);
                 intent.putExtra("category","indian");
                 startActivity(intent);
             }
@@ -91,7 +92,7 @@ public class ProductsViewActivity extends AppCompatActivity {
         float_chinese.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(ProductsViewActivity.this,ProductsViewActivity.class);
+                Intent intent=new Intent(ProductsViewActivity.this,ChineseProductsViewActivity.class);
                 intent.putExtra("category","chinese");
                 startActivity(intent);
             }
@@ -109,7 +110,7 @@ public class ProductsViewActivity extends AppCompatActivity {
         float_bakery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(ProductsViewActivity.this,ProductsViewActivity.class);
+                Intent intent=new Intent(ProductsViewActivity.this,BakeryProductsViewActivity.class);
                 intent.putExtra("category","bakery");
                 startActivity(intent);
             }
@@ -118,11 +119,21 @@ public class ProductsViewActivity extends AppCompatActivity {
         float_tandoor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(ProductsViewActivity.this,ProductsViewActivity.class);
+                Intent intent=new Intent(ProductsViewActivity.this,TandoorProductsViewActivity.class);
                 intent.putExtra("category","tandoor");
                 startActivity(intent);
             }
         });
+
+        float_rice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ProductsViewActivity.this,ProductsViewActivity.class);
+                intent.putExtra("category","rice");
+                startActivity(intent);
+            }
+        });
+
 
         isOpen=false;
 
@@ -137,6 +148,7 @@ public class ProductsViewActivity extends AppCompatActivity {
                     float_shwarma.setVisibility(View.INVISIBLE);
                     float_italian.setVisibility(View.INVISIBLE);
                     float_tandoor.setVisibility(View.INVISIBLE);
+                    float_rice.setVisibility(View.INVISIBLE);
 
                   isOpen=false;
 
@@ -149,8 +161,9 @@ public class ProductsViewActivity extends AppCompatActivity {
                     float_shwarma.setVisibility(View.VISIBLE);
                     float_italian.setVisibility(View.VISIBLE);
                     float_tandoor.setVisibility(View.VISIBLE);
+                    float_rice.setVisibility(View.VISIBLE);
 
-                    Toast.makeText(ProductsViewActivity.this,"Press menu again to close",Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(ProductsViewActivity.this,"Press menu again to close",Toast.LENGTH_SHORT).show();
 
                     isOpen=true;
 
@@ -222,6 +235,7 @@ public class ProductsViewActivity extends AppCompatActivity {
         loadingBar.setCanceledOnTouchOutside(false);
         loadingBar.show();
 
+        final DatabaseReference cartListRef=FirebaseDatabase.getInstance().getReference().child("Cart List");
         FirebaseRecyclerOptions<Products> options =
                 new FirebaseRecyclerOptions.Builder<Products>()
                         .setQuery(ProductsRef,Products.class)
@@ -233,7 +247,7 @@ public class ProductsViewActivity extends AppCompatActivity {
                     protected void onBindViewHolder(@NonNull final ProductViewHolder holder, int i, @NonNull final Products model) {
 
 
-                        final DatabaseReference cartListRef=FirebaseDatabase.getInstance().getReference().child("Cart List");
+
                         cartListRef.child("User View")
                                 .child(currentUser.getPhoneNumber())
                                 .child("Products")
@@ -244,7 +258,8 @@ public class ProductsViewActivity extends AppCompatActivity {
                                 if (dataSnapshot.exists()){
                                  String s= dataSnapshot.getValue().toString();
                                  holder.numberButton1.setNumber(s);
-                                loadingBar.dismiss();}
+                               // loadingBar.dismiss();
+                                }
                             }
 
                             @Override
@@ -256,7 +271,7 @@ public class ProductsViewActivity extends AppCompatActivity {
 
                         holder.txtProductName.setText(model.getPname());
                         holder.txtProductDescription.setText(model.getDescription());
-                        holder.txtProductPrice.setText("price = " +model.getPrice()+ " Rupees");
+                        holder.txtProductPrice.setText("Rs = " +model.getPrice()+ " ");
                         Picasso.get().load(model.getImage()).into(holder.imageView);
                        loadingBar.dismiss();
 
@@ -277,6 +292,11 @@ public class ProductsViewActivity extends AppCompatActivity {
                                                public void onComplete(@NonNull Task<Void> task) {
                                                    if (task.isSuccessful())
                                                    {
+                                                       cartListRef.child("Admin View")
+                                                               .child(currentUser.getPhoneNumber())
+                                                               .child("Products")
+                                                               .child(model.getPid())
+                                                               .removeValue();
                                                     //   Toast.makeText(CartActivity.this,"Item Removed Successfully,",Toast.LENGTH_SHORT).show();
                                                    }
                                                }
@@ -338,17 +358,6 @@ public class ProductsViewActivity extends AppCompatActivity {
 
                         });
 
-
-                       holder.itemView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                    //            Intent intent=new Intent(ProductsViewActivity.this,ProductDetailsActivity.class);
-                    //            intent.putExtra("category",category);
-                    //            intent.putExtra("pid",model.getPid());
-                                //   startActivity(intent);
-                            }
-                        });
                     }
                     @NonNull
                     @Override

@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -50,6 +51,7 @@ public class CartActivity extends AppCompatActivity {
     private TextView txtTotalAmount, txtMsg1;
     private int overTotalPrice=0;
     private int oneTypeProductTPrice=0;
+    private ProgressDialog loadingBar;
     FirebaseUser currentUser;
 
     @Override
@@ -72,13 +74,7 @@ public class CartActivity extends AppCompatActivity {
         });
 
         ImageView imgss=toolbar1.findViewById(R.id.img_cart);
-        imgss.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(CartActivity.this,CartActivity.class);
-                startActivity(intent);
-            }
-        });
+        imgss.setVisibility(View.INVISIBLE);
         recyclerView=(RecyclerView)findViewById(R.id.cart_list);
         recyclerView.setHasFixedSize(true);
         layoutManager=new LinearLayoutManager(this);
@@ -96,7 +92,7 @@ public class CartActivity extends AppCompatActivity {
 
              //   txtTotalAmount.setText("Total Price");
                if (oneTypeProductTPrice==0){
-                    Toast.makeText(CartActivity.this,"Add Atleast one item in your cart,",Toast.LENGTH_SHORT).show();
+                   Toast.makeText(CartActivity.this,"Add Atleast one item in your cart,",Toast.LENGTH_SHORT).show();
                 }
                 else{
 
@@ -136,35 +132,6 @@ public class CartActivity extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull final CartProductViewHolder cartProductViewHolder, int i, @NonNull final CartProducts cartProducts) {
 
-
-                final DatabaseReference cartListRef=FirebaseDatabase.getInstance().getReference().child("Cart List");
-                cartListRef.child("User View")
-                        .child(currentUser.getPhoneNumber())
-                        .child("Products")
-                        .child(cartProducts.getPid()).child("quantity").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                        if (dataSnapshot.exists()){
-                            String s= dataSnapshot.getValue().toString();
-                            cartProductViewHolder.numberButton1.setNumber(s);
-                            oneTypeProductTPrice =((Integer.parseInt(cartProducts.getPrice()))) * Integer.parseInt(cartProductViewHolder.numberButton1.getNumber());
-                            cartProductViewHolder.txttotal.setText("Total= " +oneTypeProductTPrice);
-
-
-                            // loadingBar.dismiss();
-                            }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-
-
-
                 cartProductViewHolder.remove.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -196,21 +163,23 @@ public class CartActivity extends AppCompatActivity {
                 });
 
                 cartProductViewHolder.txtProductName.setText(cartProducts.getPname());
-                cartProductViewHolder.txtProductPrice.setText("price = " +cartProducts.getPrice()+ " Rupees");
-           //     int oneTypeProductTPrice =((Integer.parseInt(cartProducts.getPrice()))) * Integer.parseInt(cartProductViewHolder.numberButton1.getNumber());
+                cartProductViewHolder.txtProductPrice.setText("Rs " +cartProducts.getPrice()+" ");
+                 oneTypeProductTPrice =((Integer.parseInt(cartProducts.getPrice()))) * Integer.parseInt(cartProducts.getQuantity());
                 cartProductViewHolder.txttotal.setText("Total= " +oneTypeProductTPrice);
+                cartProductViewHolder.numberButton2.setNumber(cartProducts.getQuantity());
                 Picasso.get().load(cartProducts.getImage()).into(cartProductViewHolder.imageView);
+
                 overTotalPrice=overTotalPrice+oneTypeProductTPrice;
 
 
 
 
 
-                cartProductViewHolder.numberButton1.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
+                cartProductViewHolder.numberButton2.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
                     @Override
                     public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
                         //   Toast.makeText(ProductsViewActivity.this,holder.numberButton1.getNumber(),Toast.LENGTH_SHORT).show();
-                        if(cartProductViewHolder.numberButton1.getNumber().equals("0")){
+                        if(cartProductViewHolder.numberButton2.getNumber().equals("0")){
                             final DatabaseReference cartListRef=FirebaseDatabase.getInstance().getReference().child("Cart List");
                             cartListRef.child("User View")
                                     .child(currentUser.getPhoneNumber())
@@ -223,19 +192,19 @@ public class CartActivity extends AppCompatActivity {
                                             if (task.isSuccessful())
                                             {
 
+                                                cartListRef.child("Admin View")
+                                                        .child(currentUser.getPhoneNumber())
+                                                        .child("Products")
+                                                        .child(cartProducts.getPid())
+                                                        .removeValue();
                                                 //   Toast.makeText(CartActivity.this,"Item Removed Successfully,",Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     });
-                            cartListRef.child("Admin View")
-                                    .child(currentUser.getPhoneNumber())
-                                    .child("Products")
-                                    .child(cartProducts.getPid())
-                                    .removeValue();
+
 
                         }
                         else{
-
 
                             final String saveCurrentTime, saveCurrentDate;
                             Calendar calForDate= Calendar.getInstance();
@@ -255,7 +224,7 @@ public class CartActivity extends AppCompatActivity {
                             cartMap.put("image",cartProducts.getImage());
                             cartMap.put("date",saveCurrentDate);
                             cartMap.put("time",saveCurrentTime);
-                            cartMap.put("quantity",cartProductViewHolder.numberButton1.getNumber());
+                            cartMap.put("quantity",cartProductViewHolder.numberButton2.getNumber());
                             cartMap.put("discount", "");
 
 
@@ -278,7 +247,6 @@ public class CartActivity extends AppCompatActivity {
 
                                                                         if(task.isSuccessful())
                                                                         {
-
                                                                             //    Toast.makeText(ProductDetailsActivity.this,"Added to Cart",Toast.LENGTH_LONG).show();
 
                                                                         }
@@ -302,14 +270,6 @@ public class CartActivity extends AppCompatActivity {
                 return holder;
             }
         };
-
-
-
-
-
-
-
-
 
 
      /*   FirebaseRecyclerOptions<Cart> options=
@@ -412,7 +372,7 @@ public class CartActivity extends AppCompatActivity {
                     Toolbar toolbar1= findViewById(R.id.toolbar2);
                     setSupportActionBar(toolbar1);
                     TextView textView = toolbar1.findViewById(R.id.toolbar_title);
-                    textView.setText("Order in Proces ");
+                    textView.setText("Order in Process ");
                //     txtTotalAmount.setText("Order In Process ");
                     recyclerView.setVisibility(View.GONE);
                     txtMsg1.setVisibility(View.VISIBLE);

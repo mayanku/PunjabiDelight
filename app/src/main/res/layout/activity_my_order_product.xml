@@ -6,30 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".MyOrderProductActivity">
 
-    <RelativeLayout
-        android:id="@+id/r5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#5A6FB3"
-        android:layout_alignParentTop="true">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Products"
-            android:textColor="@android:color/white"
-            android:textSize="20dp"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:layout_marginTop="10dp" />
-
-    </RelativeLayout>
-
+    <include
+        android:id="@+id/toolbar_myorder"
+        layout="@layout/toolbar1"/>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/my_product_list"
-        android:layout_below="@+id/r5">
+        android:layout_below="@+id/toolbar_myorder">
 
     </androidx.recyclerview.widget.RecyclerView>
 </RelativeLayout>

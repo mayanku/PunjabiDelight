@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import android.app.Notification;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.textclassifier.ConversationActions;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,6 +38,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+
 import com.mayank.punjabidelight.Model.Cart;
 import com.mayank.punjabidelight.Model.CartProducts;
 import com.mayank.punjabidelight.ViewHolder.CartProductViewHolder;
@@ -68,6 +73,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_final_order);
+
 
 
 
@@ -143,6 +149,8 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 payment_mode = "On Delivery";
+
+
                 Check();
             }
         });
@@ -324,6 +332,11 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
         }
         else
         {
+            loadingBar=new ProgressDialog(ConfirmFinalOrderActivity.this);
+            loadingBar.setTitle("Placing the order");
+            loadingBar.setMessage("Please wait we are placing the order");
+            loadingBar.setCanceledOnTouchOutside(false);
+            loadingBar.show();
             confirmOrder();
         }
     }
@@ -389,8 +402,10 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
 
                                     if (task.isSuccessful()) {
                                         Toast.makeText(ConfirmFinalOrderActivity.this, "YourFinal Order has been Placed Successfully", Toast.LENGTH_LONG).show();
-
+                                       loadingBar.dismiss();
                                         notification1();
+
+
                                         Intent intent = new Intent(ConfirmFinalOrderActivity.this, HomeActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);

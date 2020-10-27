@@ -49,32 +49,32 @@
                 android:layout_height="100dp"
                 android:padding="2dp"
                 android:layout_margin="2dp"
-                android:id="@+id/r_indian"
+                android:id="@+id/r_tandoorDishes"
                 android:layout_below="@+id/img"
                 android:background="@android:color/white"
                 >
 
                 <ImageView
-                    android:id="@+id/product_indian_image"
+                    android:id="@+id/product_tandoorDishes_image"
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/indian_thali"
+                    android:src="@drawable/tandoor"
                     android:textColor="@android:color/white"
                     android:layout_marginLeft="5dp"/>
 
                 <TextView
-                    android:id="@+id/product_indian_name"
+                    android:id="@+id/product_tandoorDishes_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="INDIAN"
-                    android:layout_toRightOf="@id/product_indian_image"
-                    android:textStyle="italic"
+                    android:text="TANDOOR (Paratha's, Thali's, Tandoor Starters)"
+                    android:layout_toRightOf="@id/product_tandoorDishes_image"
+                    android:textStyle="italic|bold"
                     android:gravity="center"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
                     android:textColor="@android:color/black"
-                    android:textSize="25dp"
+                    android:textSize="15dp"
                     android:padding="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_alignParentEnd="true"/>
@@ -87,35 +87,35 @@
                 android:layout_height="100dp"
                 android:padding="2dp"
                 android:layout_margin="2dp"
-                android:id="@+id/r_chinese"
-                android:layout_below="@+id/r_indian"
+                android:id="@+id/r_indianDishes"
+                android:layout_below="@+id/r_tandoorDishes"
                 android:background="@android:color/white"
                 android:layout_width="match_parent"
 
                 >
 
                 <ImageView
-                    android:id="@+id/product_chinese_image"
+                    android:id="@+id/product_indianDishes_image"
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/chinese"
+                    android:src="@drawable/indian_thali"
                     android:scaleType="centerCrop"
                     android:textColor="@android:color/white"
                     android:layout_marginLeft="5dp"
                     />
 
                 <TextView
-                    android:id="@+id/product_chinese_name"
+                    android:id="@+id/product_indianDishes_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="CHINESE"
-                    android:layout_toRightOf="@id/product_chinese_image"
-                    android:textStyle="italic"
+                    android:text="INDIAN (Dhabe SE, Paneer SE, Breads/Rotis )"
+                    android:layout_toRightOf="@id/product_indianDishes_image"
+                    android:textStyle="italic|bold"
                     android:gravity="center"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
                     android:textColor="@android:color/black"
-                    android:textSize="25dp"
+                    android:textSize="15dp"
                     android:padding="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_alignParentEnd="true"/>
@@ -127,16 +127,16 @@
                 android:layout_height="100dp"
                 android:padding="2dp"
                 android:layout_margin="2dp"
-                android:id="@+id/r_tandoor"
-                android:layout_below="@+id/r_chinese"
+                android:id="@+id/r_chineseDishes"
+                android:layout_below="@+id/r_tandoorDishes"
                 android:background="@android:color/white"
                 >
 
                 <ImageView
-                    android:id="@+id/product_tandoor_image"
+                    android:id="@+id/product_chineseDishes_image"
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/tandoor"
+                    android:src="@drawable/chinese"
                     android:scaleType="centerCrop"
                     android:textColor="@android:color/white"
                     android:textSize="14dp"
@@ -144,17 +144,17 @@
                     />
 
                 <TextView
-                    android:id="@+id/product_tandoor_name"
+                    android:id="@+id/product_chineseDishes_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="TANDOOR"
-                    android:layout_toRightOf="@id/product_tandoor_image"
-                    android:textStyle="italic"
+                    android:text="CHINESE (SOUPS,CHINA TOWN)"
+                    android:layout_toRightOf="@id/product_chineseDishes_image"
+                    android:textStyle="italic|bold"
                     android:gravity="center"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
                     android:textColor="@android:color/black"
-                    android:textSize="25dp"
+                    android:textSize="15dp"
                     android:padding="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_alignParentEnd="true"
@@ -169,13 +169,13 @@
                 android:layout_height="100dp"
                 android:padding="2dp"
                 android:layout_margin="2dp"
-                android:id="@+id/r_bakery"
-                android:layout_below="@+id/r_tandoor"
+                android:id="@+id/r_bakeryDishes"
+                android:layout_below="@+id/r_chineseDishes"
                 android:background="@android:color/white"
                 >
 
                 <ImageView
-                    android:id="@+id/product_bakery_image"
+                    android:id="@+id/product_bakeryDishes_image"
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/bakery"
@@ -186,17 +186,17 @@
                     />
 
                 <TextView
-                    android:id="@+id/product_bakery_name"
+                    android:id="@+id/product_bakeryDishes_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="BAKERY"
-                    android:layout_toRightOf="@id/product_bakery_image"
-                    android:textStyle="italic"
+                    android:text="BAKERY (PASTRY,CAKES,CAKES ON ORDER)"
+                    android:layout_toRightOf="@id/product_bakeryDishes_image"
+                    android:textStyle="italic|bold"
                     android:gravity="center"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
                     android:textColor="@android:color/black"
-                    android:textSize="25dp"
+                    android:textSize="15dp"
                     android:padding="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_alignParentEnd="true"
@@ -209,13 +209,13 @@
                 android:layout_height="100dp"
                 android:padding="2dp"
                 android:layout_margin="2dp"
-                android:id="@+id/r_Italian"
-                android:layout_below="@+id/r_bakery"
+                android:id="@+id/r_ItalianDishes"
+                android:layout_below="@+id/r_bakeryDishes"
                 android:background="@android:color/white"
                 >
 
                 <ImageView
-                    android:id="@+id/product_italian_image"
+                    android:id="@+id/product_italianDishes_image"
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/italian"
@@ -225,17 +225,17 @@
                     android:layout_marginLeft="5dp"/>
 
                 <TextView
-                    android:id="@+id/product_italian_name"
+                    android:id="@+id/product_italianDishes_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="ITALIAN"
-                    android:layout_toRightOf="@id/product_italian_image"
-                    android:textStyle="italic"
+                    android:layout_toRightOf="@id/product_italianDishes_image"
+                    android:textStyle="italic|bold"
                     android:gravity="center"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
                     android:textColor="@android:color/black"
-                    android:textSize="25dp"
+                    android:textSize="15dp"
                     android:padding="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_alignParentEnd="true"
@@ -248,13 +248,13 @@
                 android:layout_height="100dp"
                 android:padding="2dp"
                 android:layout_margin="2dp"
-                android:id="@+id/r_shwarma"
-                android:layout_below="@+id/r_italian"
+                android:id="@+id/r_shawarmaDishes"
+                android:layout_below="@+id/r_ItalianDishes"
                 android:background="@android:color/white"
                 >
 
                 <ImageView
-                    android:id="@+id/product_shwarma_image"
+                    android:id="@+id/product_shawarmaDishes_image"
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/continental"
@@ -264,22 +264,59 @@
                     android:layout_marginLeft="5dp"/>
 
                 <TextView
-                    android:id="@+id/product_shwarma_name"
+                    android:id="@+id/product_shawarmaDishes_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="SHWARMA"
-                    android:layout_toRightOf="@id/product_shwarma_image"
+                    android:layout_toRightOf="@id/product_shawarmaDishes_image"
                     android:textColor="@android:color/black"
-                    android:textSize="25dp"
-                    android:textStyle="italic"
+                    android:textSize="15dp"
+                    android:textStyle="italic|bold"
                     android:gravity="center"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_alignParentEnd="true"/>
 
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:padding="2dp"
+                android:layout_margin="2dp"
+                android:id="@+id/r_RiceDishes"
+                android:layout_below="@+id/r_ShawarmaDishes"
+                android:background="@android:color/white"
+                >
+
+                <ImageView
+                    android:id="@+id/product_riceDishes_image"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/rice"
+                    android:scaleType="centerCrop"
+                    android:textColor="@android:color/white"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="5dp"/>
+
+                <TextView
+                    android:id="@+id/product_riceDishes_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="RICE, RICE COMBOS"
+                    android:layout_toRightOf="@id/product_riceDishes_image"
+                    android:textColor="@android:color/black"
+                    android:textSize="15dp"
+                    android:textStyle="italic|bold"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_alignParentEnd="true"/>
 
             </RelativeLayout>
+
 
 
         </LinearLayout>

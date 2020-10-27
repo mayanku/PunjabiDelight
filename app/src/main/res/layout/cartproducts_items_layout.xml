@@ -18,77 +18,82 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Product Name"
-            android:textAlignment="center"
-            android:textSize="20dp"
+            android:layout_toRightOf="@+id/product_image_cart"
+            android:textAlignment="textStart"
+            android:textSize="15dp"
             android:textStyle="bold"
             android:textColor="#3A275C" />
 
         <ImageView
             android:id="@+id/product_image_cart"
-            android:layout_width="220dp"
-            android:layout_height="100dp"
+            android:layout_width="150dp"
+            android:layout_height="140dp"
             android:layout_below="@+id/product_name_cart"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginRight="5dp"
-            android:padding="5dp"
+            android:layout_marginTop="-18dp"
+            android:layout_marginRight="2dp"
+            android:padding="3dp"
             android:scaleType="centerCrop" />
-        <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
-            android:id="@+id/number_btn_cart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:elevation="3dp"
-            android:layout_centerVertical="true"
-            app:textSize="5dp"
-            android:foregroundGravity="center_vertical"
-            android:layout_below="@id/product_name_cart"
-            android:layout_centerHorizontal="true"
-            app:initialNumber="0"
-            app:backGroundColor="@color/colorPrimaryDark"
-            app:finalNumber="10"
-            android:padding="5dp"
-            android:gravity="center"
-            android:layout_toRightOf="@+id/product_image_cart"
-            android:layout_marginTop="30dp">
 
-        </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
 
         <TextView
             android:id="@+id/product_cart_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/product_image_cart"
+            android:layout_below="@+id/product_name_cart"
             android:text="Product Price"
+            android:layout_toRightOf="@+id/product_image_cart"
             android:textAlignment="textStart"
             android:textSize="14dp"
             android:textStyle="bold"
             android:padding="5dp"
             android:textColor="#3A275C" />
+
+        <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+            android:id="@+id/number_btn_cart"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:elevation="3dp"
+            app:textSize="10dp"
+            android:foregroundGravity="center_vertical"
+            android:layout_below="@id/product_cart_price"
+            android:layout_centerHorizontal="true"
+            app:initialNumber="0"
+            app:backGroundColor="@color/colorPrimaryDark"
+            app:finalNumber="10"
+            android:padding="5dp"
+            android:gravity="end"
+            android:layout_alignParentEnd="true"
+            android:layout_toRightOf="@+id/product_image_cart"
+            android:layout_marginTop="10dp">
+
+        </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
+
+
         <TextView
             android:id="@+id/product_cart_totalprice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/product_image_cart"
+            android:layout_marginTop="4dp"
+            android:padding="5dp"
             android:text="Total Product Price"
             android:textAlignment="textEnd"
+            android:textColor="#3A275C"
             android:textSize="14dp"
-            android:textStyle="bold"
-            android:padding="5dp"
-            android:textColor="#3A275C" />
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/remove"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/product_cart_price"
+            android:layout_below="@+id/product_image_cart"
             android:layout_marginTop="2dp"
-            android:layout_centerInParent="true"
-            android:gravity="center"
             android:text="REMOVE"
             android:backgroundTint="@android:color/white"
             app:icon="@drawable/ic_action_remove"
             style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-            android:textAlignment="center"
+            android:textAlignment="textStart"
             android:textColor="@android:color/holo_red_light" />
     </RelativeLayout>
 

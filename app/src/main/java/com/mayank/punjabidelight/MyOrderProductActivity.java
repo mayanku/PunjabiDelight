@@ -2,13 +2,17 @@ package com.mayank.punjabidelight;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -39,6 +43,30 @@ public class MyOrderProductActivity extends AppCompatActivity {
         myproductList.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         myproductList.setLayoutManager(layoutManager);
+
+
+        Toolbar toolbar1= findViewById(R.id.toolbar_myorder);
+        setSupportActionBar(toolbar1);
+        TextView textView = toolbar1.findViewById(R.id.toolbar_title);
+        textView.setText("Orders Product");
+
+        ImageView imgs=toolbar1.findViewById(R.id.img_back);
+        imgs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MyOrderProductActivity.this,MyOrderActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ImageView imgss=toolbar1.findViewById(R.id.img_cart);
+        imgss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MyOrderProductActivity.this,CartActivity.class);
+                startActivity(intent);
+            }
+        });
 
         orListRef = FirebaseDatabase.getInstance().getReference().child("MyOrdersProducts")
                 .child(currentUser.getPhoneNumber()).child(orderID).child("Products");

@@ -1,60 +1,42 @@
 package com.mayank.punjabidelight;
 
-import android.Manifest;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
-import android.telephony.SmsManager;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Menu;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.core.Constants;
 import com.google.firebase.messaging.FirebaseMessaging;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-RelativeLayout r_indian,r_shwarma,r_chinese,r_bakery,r_tandoor,r_italian;
+RelativeLayout r_indian,r_shwarma,r_chinese,r_bakery,r_tandoor,r_italian,r_rice;
     FirebaseUser currentUser;
 
-    private static final String CHANNEL_ID="Punjabi Delight";
+    public static final String CHANNEL_ID="Punjabi Delight";
     private static final String CHANNEL_NAME="Punjabi Delight";
     private static final String CHANNEL_DESCRIPTION="Punjabi Delight";
     @Override
@@ -63,12 +45,14 @@ RelativeLayout r_indian,r_shwarma,r_chinese,r_bakery,r_tandoor,r_italian;
         setContentView(R.layout.activity_home);
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        r_indian=(RelativeLayout)findViewById(R.id.r_indian);
-        r_shwarma=(RelativeLayout)findViewById(R.id.r_shwarma);
-        r_chinese=(RelativeLayout)findViewById(R.id.r_chinese);
-        r_bakery=(RelativeLayout)findViewById(R.id.r_bakery);
-        r_tandoor=(RelativeLayout)findViewById(R.id.r_tandoor);
-        r_italian=(RelativeLayout)findViewById(R.id.r_Italian);
+        r_indian=(RelativeLayout)findViewById(R.id.r_indianDishes);
+        r_shwarma=(RelativeLayout)findViewById(R.id.r_shawarmaDishes);
+        r_chinese=(RelativeLayout)findViewById(R.id.r_chineseDishes);
+        r_bakery=(RelativeLayout)findViewById(R.id.r_bakeryDishes);
+        r_tandoor=(RelativeLayout)findViewById(R.id.r_tandoorDishes);
+        r_italian=(RelativeLayout)findViewById(R.id.r_ItalianDishes);
+        r_rice=(RelativeLayout)findViewById(R.id.r_RiceDishes);
+
 
 
 
@@ -86,7 +70,7 @@ RelativeLayout r_indian,r_shwarma,r_chinese,r_bakery,r_tandoor,r_italian;
             mNotificationManager.createNotificationChannel(mChannel);
         }
 
-        FirebaseMessaging.getInstance().subscribeToTopic("users");
+        FirebaseMessaging.getInstance().subscribeToTopic("userstest");
 
         FirebaseDatabase.getInstance().getReference().child("Orders").child(currentUser.getPhoneNumber()).addChildEventListener(new ChildEventListener() {
             @Override
@@ -119,8 +103,7 @@ RelativeLayout r_indian,r_shwarma,r_chinese,r_bakery,r_tandoor,r_italian;
         r_indian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(HomeActivity.this,ProductsViewActivity.class);
-                intent.putExtra("category","indian");
+                Intent intent=new Intent(HomeActivity.this,IndianProductsViewActivity.class);
                 startActivity(intent);
             }
         });
@@ -137,8 +120,7 @@ RelativeLayout r_indian,r_shwarma,r_chinese,r_bakery,r_tandoor,r_italian;
         r_chinese.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(HomeActivity.this,ProductsViewActivity.class);
-                intent.putExtra("category","chinese");
+                Intent intent=new Intent(HomeActivity.this,ChineseProductsViewActivity.class);
                 startActivity(intent);
             }
         });
@@ -155,8 +137,7 @@ RelativeLayout r_indian,r_shwarma,r_chinese,r_bakery,r_tandoor,r_italian;
         r_bakery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(HomeActivity.this,ProductsViewActivity.class);
-                intent.putExtra("category","bakery");
+                Intent intent=new Intent(HomeActivity.this,BakeryProductsViewActivity.class);
                 startActivity(intent);
             }
         });
@@ -164,8 +145,15 @@ RelativeLayout r_indian,r_shwarma,r_chinese,r_bakery,r_tandoor,r_italian;
         r_tandoor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(HomeActivity.this,ProductsViewActivity.class);
-                intent.putExtra("category","tandoor");
+                Intent intent=new Intent(HomeActivity.this,TandoorProductsViewActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        r_rice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(HomeActivity.this,RiceProductsViewActivity.class);
                 startActivity(intent);
             }
         });

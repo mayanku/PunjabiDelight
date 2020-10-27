@@ -17,14 +17,14 @@ public class CartProductViewHolder extends RecyclerView.ViewHolder implements Vi
     public TextView txtProductName,txtProductPrice,txttotal;
     public ImageView imageView;
     public ItemClickListener listener;
-    public ElegantNumberButton numberButton1;
+    public ElegantNumberButton numberButton2;
     public Button remove;
 
     public CartProductViewHolder(@NonNull View itemView) {
         super(itemView);
 
         txttotal=(TextView)itemView.findViewById(R.id.product_cart_totalprice) ;
-        numberButton1=(ElegantNumberButton)itemView.findViewById(R.id.number_btn_cart);
+        numberButton2=(ElegantNumberButton)itemView.findViewById(R.id.number_btn_cart);
         imageView=(ImageView)itemView.findViewById(R.id.product_image_cart);
         txtProductName=(TextView)itemView.findViewById(R.id.product_name_cart);
         txtProductPrice=(TextView)itemView.findViewById(R.id.product_cart_price);

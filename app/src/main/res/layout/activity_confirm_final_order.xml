@@ -29,7 +29,6 @@
         android:layout_marginTop="30dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-
         android:hint="Your Name"/>
 
     <EditText
@@ -85,6 +84,7 @@
         android:layout_marginRight="20dp"
         android:background="@drawable/input_design"
         android:padding="10dp"
+        android:textSize="20dp"
         android:text="Total Price"
         android:textColor="@android:color/black"
         android:textStyle="bold" />
@@ -96,8 +96,9 @@
         android:layout_below="@+id/totalprice"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
-
-        android:padding="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="15dp"
         android:text="Confirm and PAY ONLINE"
         android:textColor="@android:color/white"
         android:textSize="20dp" />
@@ -108,9 +109,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/confirm_order_btn_online"
         android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginBottom="20dp"
         android:textColor="@android:color/white"
-        android:padding="20dp"
+        android:padding="15dp"
         android:text="Confirm and PAY ON DELIVERY"
         android:textSize="20dp" />
     </LinearLayout>

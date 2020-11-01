@@ -5,6 +5,8 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +33,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 RelativeLayout r_indian,r_shwarma,r_chinese,r_bakery,r_tandoor,r_italian,r_rice;
@@ -54,8 +57,6 @@ RelativeLayout r_indian,r_shwarma,r_chinese,r_bakery,r_tandoor,r_italian,r_rice;
         r_rice=(RelativeLayout)findViewById(R.id.r_RiceDishes);
 
 
-
-
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationManager mNotificationManager =
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -70,7 +71,7 @@ RelativeLayout r_indian,r_shwarma,r_chinese,r_bakery,r_tandoor,r_italian,r_rice;
             mNotificationManager.createNotificationChannel(mChannel);
         }
 
-        FirebaseMessaging.getInstance().subscribeToTopic("userstest");
+        FirebaseMessaging.getInstance().subscribeToTopic("customers");
 
         FirebaseDatabase.getInstance().getReference().child("Orders").child(currentUser.getPhoneNumber()).addChildEventListener(new ChildEventListener() {
             @Override
@@ -100,91 +101,91 @@ RelativeLayout r_indian,r_shwarma,r_chinese,r_bakery,r_tandoor,r_italian,r_rice;
             }
         });
 
-        r_indian.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(HomeActivity.this,IndianProductsViewActivity.class);
-                startActivity(intent);
-            }
-        });
+            r_indian.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HomeActivity.this, IndianProductsViewActivity.class);
+                    startActivity(intent);
+                }
+            });
 
-        r_shwarma.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(HomeActivity.this,ProductsViewActivity.class);
-                intent.putExtra("category","shwarma");
-                startActivity(intent);
-            }
-        });
+            r_shwarma.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HomeActivity.this, ProductsViewActivity.class);
+                    intent.putExtra("category", "shwarma");
+                    startActivity(intent);
+                }
+            });
 
-        r_chinese.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(HomeActivity.this,ChineseProductsViewActivity.class);
-                startActivity(intent);
-            }
-        });
+            r_chinese.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HomeActivity.this, ChineseProductsViewActivity.class);
+                    startActivity(intent);
+                }
+            });
 
-        r_italian.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(HomeActivity.this,ProductsViewActivity.class);
-                intent.putExtra("category","italian");
-                startActivity(intent);
-            }
-        });
+            r_italian.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HomeActivity.this, ProductsViewActivity.class);
+                    intent.putExtra("category", "italian");
+                    startActivity(intent);
+                }
+            });
 
-        r_bakery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(HomeActivity.this,BakeryProductsViewActivity.class);
-                startActivity(intent);
-            }
-        });
+            r_bakery.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HomeActivity.this, BakeryProductsViewActivity.class);
+                    startActivity(intent);
+                }
+            });
 
-        r_tandoor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(HomeActivity.this,TandoorProductsViewActivity.class);
-                startActivity(intent);
-            }
-        });
+            r_tandoor.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HomeActivity.this, TandoorProductsViewActivity.class);
+                    startActivity(intent);
+                }
+            });
 
-        r_rice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(HomeActivity.this,RiceProductsViewActivity.class);
-                startActivity(intent);
-            }
-        });
+            r_rice.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HomeActivity.this, RiceProductsViewActivity.class);
+                    startActivity(intent);
+                }
+            });
 
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Punjabi Delight");
-        setSupportActionBar(toolbar);
+            Toolbar toolbar = findViewById(R.id.toolbar);
+            toolbar.setTitle("Punjabi Delight");
+            setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(HomeActivity.this,CartActivity.class);
-                startActivity(intent);
-            }
-        });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        // menu should be considered as top level destinations.
-        ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(HomeActivity.this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+            FloatingActionButton fab = findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(HomeActivity.this, CartActivity.class);
+                    startActivity(intent);
+                }
+            });
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            NavigationView navigationView = findViewById(R.id.nav_view);
+            // Passing each menu ID as a set of Ids because each
+            // menu should be considered as top level destinations.
+            // menu should be considered as top level destinations.
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(HomeActivity.this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
+            drawer.addDrawerListener(toggle);
+            toggle.syncState();
+            navigationView.setNavigationItemSelectedListener(this);
 
-        View headerView=navigationView.getHeaderView(0);
+            View headerView = navigationView.getHeaderView(0);
 
-    }
+        }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -258,6 +259,19 @@ RelativeLayout r_indian,r_shwarma,r_chinese,r_bakery,r_tandoor,r_italian,r_rice;
 
         notificationManager.notify(1, builder.build());
 
+    }
+
+    public static boolean isConnectionAvailable (Context context){
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
+            if (netInfo != null && netInfo.isConnected()
+                    && netInfo.isConnectedOrConnecting()
+                    && netInfo.isAvailable()) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

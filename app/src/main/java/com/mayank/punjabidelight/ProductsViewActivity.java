@@ -292,11 +292,11 @@ public class ProductsViewActivity extends AppCompatActivity {
                                                public void onComplete(@NonNull Task<Void> task) {
                                                    if (task.isSuccessful())
                                                    {
-                                                       cartListRef.child("Admin View")
+                                             /*          cartListRef.child("Admin View")
                                                                .child(currentUser.getPhoneNumber())
                                                                .child("Products")
                                                                .child(model.getPid())
-                                                               .removeValue();
+                                                               .removeValue();*/
                                                     //   Toast.makeText(CartActivity.this,"Item Removed Successfully,",Toast.LENGTH_SHORT).show();
                                                    }
                                                }
@@ -336,7 +336,7 @@ public class ProductsViewActivity extends AppCompatActivity {
 
                                                 if (task.isSuccessful())
                                                 {
-                                                    cartListRef.child("Admin View").child(currentUser.getPhoneNumber())
+                                              /*      cartListRef.child("Admin View").child(currentUser.getPhoneNumber())
                                                             .child("Products").child(model.getPid())
                                                             .updateChildren(cartMap)
                                                             .addOnCompleteListener(
@@ -350,7 +350,7 @@ public class ProductsViewActivity extends AppCompatActivity {
 
                                                                             }
                                                                         }
-                                                                    });
+                                                                    }); */
                                                 }
                                             }
                                         });

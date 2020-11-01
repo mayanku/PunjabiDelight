@@ -1,14 +1,6 @@
 package com.mayank.punjabidelight;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +10,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -31,12 +29,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.mayank.punjabidelight.Model.Cart;
 import com.mayank.punjabidelight.Model.CartProducts;
-import com.mayank.punjabidelight.Model.Products;
 import com.mayank.punjabidelight.ViewHolder.CartProductViewHolder;
-import com.mayank.punjabidelight.ViewHolder.CartViewHolder;
-import com.mayank.punjabidelight.ViewHolder.ProductViewHolder;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -146,20 +140,12 @@ public class CartActivity extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful())
                                         {
-                                            cartListRef.child("Admin View")
-                                                    .child(currentUser.getPhoneNumber())
-                                                    .child("Products")
-                                                    .child(cartProducts.getPid())
-                                                    .removeValue();
                                             //   Toast.makeText(CartActivity.this,"Item Removed Successfully,",Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
 
                     }
-
-
-
                 });
 
                 cartProductViewHolder.txtProductName.setText(cartProducts.getPname());
@@ -191,12 +177,6 @@ public class CartActivity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful())
                                             {
-
-                                                cartListRef.child("Admin View")
-                                                        .child(currentUser.getPhoneNumber())
-                                                        .child("Products")
-                                                        .child(cartProducts.getPid())
-                                                        .removeValue();
                                                 //   Toast.makeText(CartActivity.this,"Item Removed Successfully,",Toast.LENGTH_SHORT).show();
                                             }
                                         }
@@ -237,21 +217,6 @@ public class CartActivity extends AppCompatActivity {
 
                                             if (task.isSuccessful())
                                             {
-                                                cartListRef.child("Admin View").child(currentUser.getPhoneNumber())
-                                                        .child("Products").child(cartProducts.getPid())
-                                                        .updateChildren(cartMap)
-                                                        .addOnCompleteListener(
-                                                                new OnCompleteListener<Void>() {
-                                                                    @Override
-                                                                    public void onComplete(@NonNull Task<Void> task) {
-
-                                                                        if(task.isSuccessful())
-                                                                        {
-                                                                            //    Toast.makeText(ProductDetailsActivity.this,"Added to Cart",Toast.LENGTH_LONG).show();
-
-                                                                        }
-                                                                    }
-                                                                });
                                             }
                                         }
                                     });
@@ -272,89 +237,7 @@ public class CartActivity extends AppCompatActivity {
         };
 
 
-     /*   FirebaseRecyclerOptions<Cart> options=
-                new FirebaseRecyclerOptions.Builder<Cart>()
-                        .setQuery(cartListRef.child("User View")
-                                .child(currentUser.getPhoneNumber()).child("Products"),Cart.class).build();
 
-
-        FirebaseRecyclerAdapter<Cart, CartViewHolder> adapter
-                =new FirebaseRecyclerAdapter<Cart, CartViewHolder>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull CartViewHolder holder, int i, @NonNull final Cart model) {
-
-                holder.txtProductQuantity.setText("Quantity = " +model.getQuantity());
-                holder.txtProductPrice.setText("Price = "+model.getPrice());
-                holder.txtProductName.setText("Product = " +model.getPname());
-
-                int oneTypeProductTPrice =((Integer.valueOf(model.getPrice()))) * Integer.valueOf(model.getQuantity());
-
-                overTotalPrice=overTotalPrice+oneTypeProductTPrice;
-
-
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        CharSequence options[] = new CharSequence[]
-                                {
-                                        "Edit",
-                                        "Remove"
-                                };
-
-                        AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this);
-                        builder.setTitle("Cart Options:");
-                        builder.setItems(options, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i)
-                            {
-                                if (i==0)
-                                {
-                                    Intent intent=new Intent(CartActivity.this,ProductDetailsActivity.class);
-                                    intent.putExtra("pid",model.getPid());
-                                    startActivity(intent);
-                                }
-                                if (i==1)
-                                {
-
-
-                                    String key = orderListRef.child(currentUser.getPhoneNumber()).getKey();
-                                    orderListRef.child(currentUser.getPhoneNumber()).child(key).child("Products")
-                                            .child(model.getPid()).removeValue();
-
-                                    cartListRef.child("Admin View").child(currentUser.getPhoneNumber()).child("Products")
-                                            .child(model.getPid()).removeValue();
-
-
-
-                                    cartListRef.child("User View")
-                                            .child(currentUser.getPhoneNumber())
-                                            .child("Products")
-                                            .child(model.getPid())
-                                            .removeValue()
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (task.isSuccessful())
-                                                    {
-                                                        Toast.makeText(CartActivity.this,"Item Removed Successfully,",Toast.LENGTH_SHORT).show();
-                                                    }
-                                                }
-                                            });
-                                }
-                            }
-                        });
-                        builder.show();
-                    }
-                });
-            }
-            @NonNull
-            @Override
-            public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_items_layout,parent,false);
-                CartViewHolder holder=new CartViewHolder(view);
-                return holder;
-            }*/
-     //   };
         recyclerView.setAdapter(adapter);
         adapter.startListening();
     }
@@ -373,7 +256,6 @@ public class CartActivity extends AppCompatActivity {
                     setSupportActionBar(toolbar1);
                     TextView textView = toolbar1.findViewById(R.id.toolbar_title);
                     textView.setText("Order in Process ");
-               //     txtTotalAmount.setText("Order In Process ");
                     recyclerView.setVisibility(View.GONE);
                     txtMsg1.setVisibility(View.VISIBLE);
                     NextProcessBtn.setVisibility(View.GONE);

@@ -8,16 +8,20 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_main">
 
-    <ImageView
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:src="@drawable/punjabidelight"
+        android:layout_height="80dp"
+        android:background="#444B73"
         android:scaleType="centerCrop"
         android:padding="10dp"
-        android:layout_marginRight="2dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="2dp"
+        android:gravity="center"
+        android:textSize="15dp"
+        android:textColor="@android:color/white"
+        android:text="We Provide fresh and delicious food and follow all the hygiene guidelines. You can call us at 9993716592 or 7441100734"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:id="@+id/img"
         />
     <TextView
@@ -25,6 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/img"
         android:text="Categories"
+        android:textColor="@android:color/black"
         android:id="@+id/textview_categories"
         android:textSize="30dp"
         android:gravity="center_horizontal"

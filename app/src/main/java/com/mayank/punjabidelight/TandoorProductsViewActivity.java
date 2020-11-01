@@ -216,11 +216,6 @@ public class TandoorProductsViewActivity extends AppCompatActivity {
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful())
                                                     {
-                                                        cartListRef.child("Admin View")
-                                                                .child(currentUser.getPhoneNumber())
-                                                                .child("Products")
-                                                                .child(model.getPid())
-                                                                .removeValue();
                                                         //   Toast.makeText(CartActivity.this,"Item Removed Successfully,",Toast.LENGTH_SHORT).show();
                                                     }
                                                 }
@@ -260,21 +255,6 @@ public class TandoorProductsViewActivity extends AppCompatActivity {
 
                                                     if (task.isSuccessful())
                                                     {
-                                                        cartListRef.child("Admin View").child(currentUser.getPhoneNumber())
-                                                                .child("Products").child(model.getPid())
-                                                                .updateChildren(cartMap)
-                                                                .addOnCompleteListener(
-                                                                        new OnCompleteListener<Void>() {
-                                                                            @Override
-                                                                            public void onComplete(@NonNull Task<Void> task) {
-
-                                                                                if(task.isSuccessful())
-                                                                                {
-                                                                                    //    Toast.makeText(ProductDetailsActivity.this,"Added to Cart",Toast.LENGTH_LONG).show();
-
-                                                                                }
-                                                                            }
-                                                                        });
                                                     }
                                                 }
                                             });
@@ -362,11 +342,6 @@ public class TandoorProductsViewActivity extends AppCompatActivity {
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful())
                                                     {
-                                                        cartListRef.child("Admin View")
-                                                                .child(currentUser.getPhoneNumber())
-                                                                .child("Products")
-                                                                .child(model.getPid())
-                                                                .removeValue();
                                                         //   Toast.makeText(CartActivity.this,"Item Removed Successfully,",Toast.LENGTH_SHORT).show();
                                                     }
                                                 }
@@ -406,21 +381,7 @@ public class TandoorProductsViewActivity extends AppCompatActivity {
 
                                                     if (task.isSuccessful())
                                                     {
-                                                        cartListRef.child("Admin View").child(currentUser.getPhoneNumber())
-                                                                .child("Products").child(model.getPid())
-                                                                .updateChildren(cartMap)
-                                                                .addOnCompleteListener(
-                                                                        new OnCompleteListener<Void>() {
-                                                                            @Override
-                                                                            public void onComplete(@NonNull Task<Void> task) {
 
-                                                                                if(task.isSuccessful())
-                                                                                {
-                                                                                    //    Toast.makeText(ProductDetailsActivity.this,"Added to Cart",Toast.LENGTH_LONG).show();
-
-                                                                                }
-                                                                            }
-                                                                        });
                                                     }
                                                 }
                                             });
@@ -442,12 +403,9 @@ public class TandoorProductsViewActivity extends AppCompatActivity {
         adapter.startListening();
 
     }
-
-
     @Override
     protected void onStart() {
         super.onStart();
         show_all();
     }
-
 }

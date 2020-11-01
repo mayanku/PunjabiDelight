@@ -135,7 +135,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
                         if (task.isSuccessful())
                         {
-                            cartListRef.child("Admin View").child(currentUser.getPhoneNumber())
+                 /*           cartListRef.child("Admin View").child(currentUser.getPhoneNumber())
                                     .child("Products").child(productID)
                                     .updateChildren(cartMap)
                                     .addOnCompleteListener(
@@ -149,7 +149,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
                                                     }
                                                 }
-                                            });
+                                            }); */
                         }
                     }
                 });

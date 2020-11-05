@@ -176,11 +176,19 @@ public class ProductsViewActivity extends AppCompatActivity {
 
         category=getIntent().getStringExtra("category");
 
+        if(category.equals("shwarma")){
+            category="shawarma";
+        }
+
      //  dishheading.setText(""+category.toUpperCase()+" DISHES ");
         Toolbar toolbar1= findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar1);
         TextView textView = toolbar1.findViewById(R.id.toolbar_title);
         textView.setText(""+category.toUpperCase()+" DISHES ");
+
+        if(category.equals("shawarma")){
+            category="shwarma";
+        }
 
         ImageView imgs=toolbar1.findViewById(R.id.img_back);
         imgs.setOnClickListener(new View.OnClickListener() {
@@ -210,13 +218,7 @@ public class ProductsViewActivity extends AppCompatActivity {
         layoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-
-
-
-
     }
-
-
 
 
 

@@ -26,11 +26,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.mayank.punjabidelight.Model.CartProducts;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ConfirmFinalOrderActivity extends AppCompatActivity {
 
@@ -44,8 +49,8 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
     FirebaseUser currentUser;
     private ProgressDialog loadingBar;
     DatabaseReference transRef;
-
-
+    private APIService apiService;
+    String refreshToken="";
 
     private String orderRandomKey, payment_mode;
     private static final String CHANNEL_ID="Punjabi Delight";
@@ -93,6 +98,8 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
         addressEditText = (EditText) findViewById(R.id.shipment_address);
         cityEditText = (EditText) findViewById(R.id.shipment_city);
         total = (TextView) findViewById(R.id.totalprice);
+        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
+        refreshToken= FirebaseInstanceId.getInstance().getToken();
 
 
         confirmpayonline.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +117,10 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
                     Toast.makeText(ConfirmFinalOrderActivity.this, "Please Provide full Name", Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(cityEditText.getText().toString())) {
                     Toast.makeText(ConfirmFinalOrderActivity.this, "Please Provide full Name", Toast.LENGTH_SHORT).show();
-                } else {
+                }
+                else if (totalAmount<180) {
+                    Toast.makeText(ConfirmFinalOrderActivity.this, "Order Amount should be greater than 180", Toast.LENGTH_SHORT).show();
+                }else {
 
                     Toast.makeText(ConfirmFinalOrderActivity.this, "We will soon start with Online Payment Currently we are accepting only COD Please use below button", Toast.LENGTH_SHORT).show();
                    // startPayment();
@@ -124,6 +134,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 payment_mode = "On Delivery";
+
                 Check();
             }
         });
@@ -157,6 +168,9 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
         {
             Toast.makeText(this,"Please Provide your city",Toast.LENGTH_LONG).show();
 
+        }
+        else if (totalAmount<180) {
+            Toast.makeText(ConfirmFinalOrderActivity.this, "Order Amount should be greater than 180", Toast.LENGTH_SHORT).show();
         }
         else
         {
@@ -213,6 +227,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
         orderMap.put("city", cityEditText.getText().toString());
         orderMap.put("date", saveCurrentDate);
         orderMap.put("time", saveCurrentTime);
+        orderMap.put("token",refreshToken);
         orderMap.put("paymentmode", payment_mode);
         orderMap.put("state", "not shipped");
 
@@ -237,6 +252,19 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
                                         Toast.makeText(ConfirmFinalOrderActivity.this, "Your Final Order has been Placed Successfully", Toast.LENGTH_LONG).show();
                                        loadingBar.dismiss();
                                         notification1();
+
+                                        FirebaseDatabase.getInstance().getReference().child("Tokens").child("Admin").child("token").addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                String usertoken=dataSnapshot.getValue(String.class);
+                                                sendNotifications(usertoken, "New Order","Received New Order");
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                            }
+                                        });
 
 
                                         Intent intent = new Intent(ConfirmFinalOrderActivity.this, HomeActivity.class);
@@ -288,6 +316,25 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
         });
     }
 
+    public void sendNotifications(String usertoken, String title, String message) {
+        Data data = new Data(title, message);
+        NotificationSender sender = new NotificationSender(data, usertoken);
+        apiService.sendNotifcation(sender).enqueue(new Callback<MyResponse>() {
+            @Override
+            public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                if (response.code() == 200) {
+                    if (response.body().success != 1) {
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MyResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -297,7 +344,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
         loadingBar.setMessage("Please wait we are updating our menu");
         loadingBar.setCanceledOnTouchOutside(false);
         loadingBar.show();
-        totalAmount=0;
+        totalAmount=30;
 
         final DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference().child("Cart List");
         cartListRef.child("User View")

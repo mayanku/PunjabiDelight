@@ -49,14 +49,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
          currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-     //   FloatingActionButton fab = findViewById(R.id.fab1);
-     //   fab.setOnClickListener(new View.OnClickListener() {
-     //       @Override
-      //      public void onClick(View view) {
-      //          Intent intent=new Intent(ProductDetailsActivity.this,CartActivity.class);
-       //         startActivity(intent);
-        //    }
-       // });
         addToCartButton=(Button)findViewById(R.id.pd_add_to_cart_button);
         numberButton=(ElegantNumberButton)findViewById(R.id.number_btn);
         productImage=(ImageView)findViewById(R.id.product_image_details);
@@ -135,21 +127,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
                         if (task.isSuccessful())
                         {
-                 /*           cartListRef.child("Admin View").child(currentUser.getPhoneNumber())
-                                    .child("Products").child(productID)
-                                    .updateChildren(cartMap)
-                                    .addOnCompleteListener(
-                                            new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-
-                                                    if(task.isSuccessful())
-                                                    {
-                                                        Toast.makeText(ProductDetailsActivity.this,"Added to Cart",Toast.LENGTH_LONG).show();
-
-                                                    }
-                                                }
-                                            }); */
                         }
                     }
                 });

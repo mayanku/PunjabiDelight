@@ -13,10 +13,14 @@ public class Products {
 
 
 
+    private String available;
+
+
+
     public Products()
     {}
 
-    public Products(String pname, String description, String price, String image, String category, String pid, String date, String time) {
+    public Products(String pname, String description, String price, String image, String category, String pid, String date, String time,String available) {
         this.pname = pname;
         this.description = description;
         this.price = price;
@@ -25,8 +29,16 @@ public class Products {
         this.pid = pid;
         this.date = date;
         this.time = time;
+        this.available=available;
     }
 
+    public String getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(String available) {
+        this.available = available;
+    }
     public String getPname() {
         return pname;
     }

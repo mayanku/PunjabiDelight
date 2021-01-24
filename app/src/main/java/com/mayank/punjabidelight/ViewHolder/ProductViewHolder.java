@@ -1,6 +1,7 @@
 package com.mayank.punjabidelight.ViewHolder;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,11 +17,13 @@ public class ProductViewHolder extends RecyclerView.ViewHolder implements View.O
     public ImageView imageView;
     public ItemClickListener listener;
     public ElegantNumberButton numberButton1;
+    public Button soldout;
 
     public ProductViewHolder(View itemView) {
         super(itemView);
 
         numberButton1=(ElegantNumberButton)itemView.findViewById(R.id.number_btn1);
+        soldout=(Button)itemView.findViewById(R.id.soldout);
         imageView=(ImageView)itemView.findViewById(R.id.product_image);
         txtProductDescription=(TextView)itemView.findViewById(R.id.product_description);
         txtProductName=(TextView)itemView.findViewById(R.id.product_name);

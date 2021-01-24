@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChooseDeliveryActivity">
+
+    <include
+        android:id="@+id/toolbar_choose"
+        layout="@layout/toolbar1"/>
+
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:checkedButton="@+id/radio_pickup"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content">
+    <RadioButton
+        android:id="@+id/radio_pickup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:textSize="20sp"
+        android:text="Pickup Order/DineIn"/>
+    <RadioButton
+        android:id="@+id/radio_delivery"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:textSize="20sp"
+        android:layout_margin="10dp"
+        android:text="Delivery"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/next_process"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#5A6FB3"
+        android:text="NEXT"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="@android:color/white"
+        android:textSize="20dp" />
+
+</RelativeLayout>

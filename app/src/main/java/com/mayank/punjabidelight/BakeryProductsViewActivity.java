@@ -193,6 +193,11 @@ public class BakeryProductsViewActivity extends AppCompatActivity {
                             }
                         });
 
+                        if(model.getAvailable().equals("0")){
+                            holder.numberButton1.setVisibility(View.GONE);
+                            holder.soldout.setVisibility(View.VISIBLE);
+                        }
+
 
                         holder.txtProductName.setText(model.getPname());
                         holder.txtProductDescription.setText(model.getDescription());
@@ -339,6 +344,10 @@ public class BakeryProductsViewActivity extends AppCompatActivity {
                             }
                         });
 
+                        if(model.getAvailable().equals("0")){
+                            holder.numberButton1.setVisibility(View.GONE);
+                            holder.soldout.setVisibility(View.VISIBLE);
+                        }
 
                         holder.txtProductName.setText(model.getPname());
                         holder.txtProductDescription.setText(model.getDescription());

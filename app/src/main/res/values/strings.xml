@@ -13,4 +13,12 @@
     <string name="menu_slideshow">Slideshow</string>
 
     <string name="home_second">Home Second</string>
+    <string name="supporting_text_tandoor"> Paranthas, Thalis, Tandoor Starters ... </string>
+    <string name="supporting_text_indian"> Dhabe SE, Paneer SE, Rotis, Curry ...</string>
+    <string name="supporting_text_chinese"> Soups, Manchurians, Noodles, Chilli ...</string>
+    <string name="supporting_text_italian"> Pizza, Pasta, Spaghetti, Risotto, Lasagna ...</string>
+    <string name="supporting_text_bakery"> Pastries, Cakes, Cookies, Muffins ...</string>
+    <string name="supporting_text_shwarma"> Punjabi Flavour, Veg, Paneer ...</string>
+    <string name="supporting_text_rice"> Veg Fried, Jeera Fried, Chole Rice, Rajma Rice ...</string>
+
 </resources>
